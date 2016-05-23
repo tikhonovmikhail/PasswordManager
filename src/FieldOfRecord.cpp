@@ -10,8 +10,6 @@
 #include "FieldOfRecord.h"
 #include "UnitTest.h"
 
-#include <iostream>
-
 using std::string;
 using std::vector;
 using std::invalid_argument;
