@@ -83,7 +83,7 @@ TESTF(FieldOfRecord, ShouldCreateObjectWithValidParams)
 {
 	try
 	{
-		FieldOfRecord(goodName, goodValue);
+		FieldOfRecord f(goodName, goodValue);
 	}
 	catch(invalid_argument& exc)
 	{
@@ -99,7 +99,7 @@ TESTF(FieldOfRecord, ShouldNotCreateObjectWithInvalidParams)
 	{
 		try
 		{
-			FieldOfRecord(badName, goodValue);
+			FieldOfRecord f(badName, goodValue);
 		}
 		catch(invalid_argument& exc)
 		{
