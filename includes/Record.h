@@ -9,22 +9,28 @@
 #define INCLUDES_RECORD_H_
 
 #include <string>
+#include <map>
+#include <vector>
 #include <stdexcept>
+#include <UnitTest.h>
 
 class Record {
 public:
-	enum types {site, bankCard, nTypes};
-	Record(const std::string& title, const types rtype) throw(std::invalid_argument);
+#ifndef RUN_UNIT_TESTS
+	// This class is asbtract, but unit tests need to instantiate it
+	virtual void abstractClass() = 0;
+#endif
+	Record(const std::string& title) throw(std::invalid_argument);
 	virtual ~Record();
 	bool setTitle(const std::string& title);
 	std::string getTitle() const;
-	types getType() const;
+protected:
+	void initFields(const std::vector<std::string>& names);
 private:
+	static const std::string defaultFieldValue;
 	std::string title;
-	types rtype;
-	bool setType(const types rtype);
+	std::map<std::string,std::string> fields;
 	bool isValidTitle(const std::string& title) const;
-	bool isValidType(const types rtype) const;
 };
 
 #endif /* INCLUDES_RECORD_H_ */
