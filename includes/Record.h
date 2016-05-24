@@ -13,21 +13,18 @@
 
 class Record {
 public:
-	typedef int type;
-	static const type site;
-	static const type bankCard;
-
-	Record(const std::string& title, const type rtype) throw(std::invalid_argument);
+	enum types {site, bankCard, nTypes};
+	Record(const std::string& title, const types rtype) throw(std::invalid_argument);
 	virtual ~Record();
 	bool setTitle(const std::string& title);
 	std::string getTitle() const;
-	type getType() const;
+	types getType() const;
 private:
 	std::string title;
-	type rtype;
-	bool setType(const type rtype);
+	types rtype;
+	bool setType(const types rtype);
 	bool isValidTitle(const std::string& title) const;
-	bool isValidType(const type rtype) const;
+	bool isValidType(const types rtype) const;
 };
 
 #endif /* INCLUDES_RECORD_H_ */

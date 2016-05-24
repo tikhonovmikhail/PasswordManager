@@ -14,10 +14,7 @@ using std::string;
 using std::vector;
 using std::invalid_argument;
 
-const Record::type Record::site = 1;
-const Record::type Record::bankCard = 2;
-
-Record::Record(const string& title, const type rtype) throw(invalid_argument)
+Record::Record(const string& title, const types rtype) throw(invalid_argument)
 {
 	if (!isValidTitle(title))
 		throw invalid_argument(typeid(*this).name() + string(": construct with invalid title = '" + title + "'"));
@@ -49,7 +46,7 @@ string Record::getTitle() const
 	return title;
 }
 
-bool Record::setType(const type rtype)
+bool Record::setType(const types rtype)
 {
 	bool isValid = isValidType(rtype);
 	if (isValid)
@@ -59,7 +56,7 @@ bool Record::setType(const type rtype)
 	return isValid;
 }
 
-Record::type Record::getType() const
+Record::types Record::getType() const
 {
 	return rtype;
 }
@@ -69,9 +66,9 @@ bool Record::isValidTitle(const string& title) const
 	return !title.empty();
 }
 
-bool Record::isValidType(const type rtype) const
+bool Record::isValidType(const types rtype) const
 {
-	return (rtype == site) || (rtype == bankCard);
+	return rtype < types::nTypes;
 }
 
 #ifdef RUN_UNIT_TESTS
@@ -80,9 +77,9 @@ DECLARE(Record)
 string goodTitle;
 string goodTitle2;
 vector<string> badTitles;
-Record::type goodType;
-Record::type goodType2;
-Record::type badType;
+Record::types goodType;
+Record::types goodType2;
+int badType;
 END_DECLARE
 
 SETUP(Record)
@@ -90,8 +87,8 @@ SETUP(Record)
 	goodTitle = "my title";
 	goodTitle2 = "foo";
 	badTitles = {""}; // Add examples of bad names here
-	goodType = Record::site;
-	goodType2 = Record::bankCard;
+	goodType = Record::types::site;
+	goodType2 = Record::types::bankCard;
 	badType = 146;
 }
 
@@ -132,7 +129,7 @@ TESTF(Record, ShouldNotCreateObjectWithInvalidType)
 {
 	try
 	{
-		Record r(goodTitle, badType);
+		Record r(goodTitle, Record::types(badType));
 	}
 	catch (invalid_argument& exc)
 	{
