@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <SiteRecord.h>
+#include "UnitTest.h"
 
 using std::string;
 using std::vector;
@@ -24,5 +25,11 @@ SiteRecord::SiteRecord(const string& title) : Record(title)
 SiteRecord::~SiteRecord()
 {
 
+}
+
+bool SiteRecord::setFieldValue(const string& name, const string& value)
+{
+	if (doesExistFieldName(name))
+		return false;
 }
 

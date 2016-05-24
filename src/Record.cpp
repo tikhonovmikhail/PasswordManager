@@ -57,6 +57,11 @@ void Record::initFields(const vector<string>& names)
 	}
 }
 
+bool Record::doesExistFieldName(const string& name) const
+{
+	fields.find(name) != fields.end();
+}
+
 #ifdef RUN_UNIT_TESTS
 
 DECLARE(Record)

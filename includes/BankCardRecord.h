@@ -19,9 +19,9 @@ public:
 	static const std::string validThruYear;
 	static const std::string cvv2cvc2;
 	static const std::string comment;
-
 	BankCardRecord(const std::string& title);
 	~BankCardRecord();
+	bool setFieldValue(const std::string& name, const std::string& value);
 };
 
 #endif /* INCLUDES_BANKCARDRECORD_H_ */
