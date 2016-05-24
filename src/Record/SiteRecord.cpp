@@ -6,8 +6,7 @@
  */
 
 #include <vector>
-#include <SiteRecord.h>
-#include "UnitTest.h"
+#include <Record/SiteRecord.h>
 
 using std::string;
 using std::vector;

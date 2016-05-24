@@ -9,7 +9,7 @@
 #define INCLUDES_SITERECORD_H_
 
 #include <string>
-#include <Record.h>
+#include <Record/Record.h>
 
 class SiteRecord: public Record {
 public:

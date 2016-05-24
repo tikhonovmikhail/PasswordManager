@@ -6,8 +6,7 @@
  */
 
 #include <vector>
-#include <BankCardRecord.h>
-#include "UnitTest.h"
+#include <Record/BankCardRecord.h>
 
 using std::string;
 using std::vector;

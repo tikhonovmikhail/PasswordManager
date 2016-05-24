@@ -9,7 +9,7 @@
 #define INCLUDES_BANKCARDRECORD_H_
 
 #include <string>
-#include <Record.h>
+#include <Record/Record.h>
 
 class BankCardRecord: public Record {
 public:
