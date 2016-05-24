@@ -27,9 +27,8 @@ SiteRecord::~SiteRecord()
 
 }
 
-bool SiteRecord::setFieldValue(const string& name, const string& value)
+bool SiteRecord::isValidFieldValue(const string& name, const string& value)
 {
-	if (doesExistFieldName(name))
-		return false;
+	return true;
 }
 

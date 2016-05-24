@@ -29,9 +29,8 @@ BankCardRecord::~BankCardRecord()
 
 }
 
-bool BankCardRecord::setFieldValue(const string& name, const string& value)
+bool BankCardRecord::isValidFieldValue(const string& name, const string& value)
 {
-	if (doesExistFieldName(name))
-		return false;
+	return true;
 }
 

@@ -16,27 +16,24 @@
 
 class Record {
 public:
-
-	// This class is asbtract, but unit tests need to instantiate it
-#ifdef RUN_UNIT_TESTS
-	virtual bool setFieldValue(const std::string& name, const std::string& value) {}
-#else
-	virtual void abstractClass() = 0;
-	virtual bool setFieldValue(const std::string& name, const std::string& value) = 0;
-#endif
-
 	Record(const std::string& title) throw(std::invalid_argument);
 	virtual ~Record();
 	bool setTitle(const std::string& title);
 	std::string getTitle() const;
+	bool setFieldValue(const std::string& name, const std::string& value);
 protected:
 	void initFields(const std::vector<std::string>& names);
-	bool doesExistFieldName(const std::string& name) const;
+#ifdef RUN_UNIT_TESTS
+	virtual bool isValidFieldValue(const std::string& name, const std::string& value) {};
+#else
+	virtual bool isValidFieldValue(const std::string& name, const std::string& value) = 0;
+#endif
 private:
 	static const std::string defaultFieldValue;
 	std::string title;
 	std::map<std::string,std::string> fields;
 	bool isValidTitle(const std::string& title) const;
+	bool isValidFieldName(const std::string& name) const;
 };
 
 #endif /* INCLUDES_RECORD_H_ */

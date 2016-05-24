@@ -21,7 +21,7 @@ public:
 	static const std::string comment;
 	BankCardRecord(const std::string& title);
 	~BankCardRecord();
-	bool setFieldValue(const std::string& name, const std::string& value);
+	bool isValidFieldValue(const std::string& name, const std::string& value);
 };
 
 #endif /* INCLUDES_BANKCARDRECORD_H_ */

@@ -19,7 +19,7 @@ public:
 	static const std::string comment;
 	SiteRecord(const std::string& title);
 	~SiteRecord();
-	bool setFieldValue(const std::string& name, const std::string& value);
+	bool isValidFieldValue(const std::string& name, const std::string& value);
 };
 
 #endif /* INCLUDES_SITERECORD_H_ */
