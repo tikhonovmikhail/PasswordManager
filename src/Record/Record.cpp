@@ -19,7 +19,9 @@ const string Record::defaultFieldValue = "";
 Record::Record(const string& title) throw(invalid_argument)
 {
 	if (!isValidTitle(title))
+	{
 		throw invalid_argument(typeid(*this).name() + string(": construct with invalid title = '" + title + "'"));
+	}
 
 	setTitle(title);
 }
@@ -64,10 +66,24 @@ bool Record::isValidFieldName(const string& name) const
 
 bool Record::setFieldValue(const string& name, const string& value)
 {
-	if ( !isValidFieldName(name) )
+	if ( !isValidFieldName(name) || !isValidFieldValue(name, value) )
+	{
 		return false;
+	}
 
-	return isValidFieldValue(name, value);
+	fields[name] = value;
+	return true;
+}
+
+bool Record::getFieldValue(const string& name, string& value)
+{
+	if ( !isValidFieldName(name) )
+	{
+		return false;
+	}
+
+	value = fields.find(name)->second;
+	return true;
 }
 
 

@@ -21,6 +21,7 @@ public:
 	bool setTitle(const std::string& title);
 	std::string getTitle() const;
 	bool setFieldValue(const std::string& name, const std::string& value);
+	bool getFieldValue(const std::string& name, std::string& value);
 protected:
 	void initFields(const std::vector<std::string>& names);
 #ifdef RUN_UNIT_TESTS
