@@ -23,13 +23,3 @@ BankCardRecord::BankCardRecord(const string& title) : Record(title)
 	initFields( vector<string>{number,cardholder,validThruMonth,validThruYear,cvv2cvc2,comment} );
 }
 
-BankCardRecord::~BankCardRecord()
-{
-
-}
-
-bool BankCardRecord::isValidFieldValue(const string& name, const string& value)
-{
-	return true;
-}
-

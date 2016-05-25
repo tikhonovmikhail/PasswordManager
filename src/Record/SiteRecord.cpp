@@ -21,13 +21,3 @@ SiteRecord::SiteRecord(const string& title) : Record(title)
 	initFields( vector<string>{link,login,password,comment} );
 }
 
-SiteRecord::~SiteRecord()
-{
-
-}
-
-bool SiteRecord::isValidFieldValue(const string& name, const string& value)
-{
-	return true;
-}
-

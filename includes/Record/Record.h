@@ -25,11 +25,6 @@ public:
 	bool getFieldValue(const std::string& name, std::string& value);
 protected:
 	void initFields(const std::vector<std::string>& names);
-#ifdef RUN_UNIT_TESTS
-	virtual bool isValidFieldValue(const std::string& name, const std::string& value) {};
-#else
-	virtual bool isValidFieldValue(const std::string& name, const std::string& value) = 0;
-#endif
 private:
 	std::string title;
 	std::map<std::string,std::string> fields;

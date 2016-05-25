@@ -66,7 +66,7 @@ bool Record::isValidFieldName(const string& name) const
 
 bool Record::setFieldValue(const string& name, const string& value)
 {
-	if ( !isValidFieldName(name) || !isValidFieldValue(name, value) )
+	if ( !isValidFieldName(name) )
 	{
 		return false;
 	}
