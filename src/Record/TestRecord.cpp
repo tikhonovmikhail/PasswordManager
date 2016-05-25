@@ -111,6 +111,11 @@ TESTF(Record, ShouldSetAndReturnValidValueOfValidFieldName)
 	r->setFieldValue(invalidFieldName, validFieldValue);
 	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
 	ASSERT_EQUALS(validFieldValue2, returnValue);
+
+	returnValue = "";
+	r->setFieldValue(validFieldName, Record::emptyFieldValue);
+	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
+	ASSERT_EQUALS(Record::emptyFieldValue, returnValue);
 }
 
 #endif // RUN_UNIT_TESTS

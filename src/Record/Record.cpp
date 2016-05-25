@@ -14,7 +14,7 @@ using std::string;
 using std::vector;
 using std::invalid_argument;
 
-const string Record::defaultFieldValue = "";
+const string Record::emptyFieldValue = "";
 
 Record::Record(const string& title) throw(invalid_argument)
 {
@@ -55,7 +55,7 @@ void Record::initFields(const vector<string>& names)
 {
 	for (const auto& name: names)
 	{
-		fields.insert( std::make_pair(name,defaultFieldValue) );
+		fields.insert( std::make_pair(name,emptyFieldValue) );
 	}
 }
 

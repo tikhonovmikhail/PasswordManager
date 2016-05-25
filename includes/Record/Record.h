@@ -16,6 +16,7 @@
 
 class Record {
 public:
+	static const std::string emptyFieldValue;
 	Record(const std::string& title) throw(std::invalid_argument);
 	virtual ~Record();
 	bool setTitle(const std::string& title);
@@ -30,7 +31,6 @@ protected:
 	virtual bool isValidFieldValue(const std::string& name, const std::string& value) = 0;
 #endif
 private:
-	static const std::string defaultFieldValue;
 	std::string title;
 	std::map<std::string,std::string> fields;
 	bool isValidTitle(const std::string& title) const;
