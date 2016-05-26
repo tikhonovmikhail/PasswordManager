@@ -1,11 +1,10 @@
 #include <iostream>
 #include "UnitTest.h"
 #include <Record/Record.h>
-#include <Record/BankCardRecord.h>
-#include <Record/SiteRecord.h>
 
 using std::string;
 using std::vector;
+using std::set;
 using std::invalid_argument;
 
 #ifdef RUN_UNIT_TESTS
@@ -14,6 +13,9 @@ DECLARE(Record)
 string goodTitle;
 string goodTitle2;
 vector<string> badTitles;
+Record::rtype goodType;
+Record::rtype goodType2;
+Record::rtype badType;
 string validFieldValue;
 string validFieldValue2;
 string validFieldName;
@@ -25,9 +27,12 @@ SETUP(Record)
 	goodTitle = "my title";
 	goodTitle2 = "foo";
 	badTitles = {""}; // Add examples of bad names here
+	goodType = Record::rtype::SITE;
+	goodType2 = Record::rtype::BANKCARD;
+	badType = Record::rtype(146);
 	validFieldValue = "v";
 	validFieldValue2 = "v2";
-	validFieldName = SiteRecord::login;
+	validFieldName = Record::site_login;
 	invalidFieldName = "foo";
 }
 
@@ -37,7 +42,7 @@ TESTF(Record, ShouldCreateObjectWithValidParams)
 {
 	try
 	{
-		Record r(goodTitle);
+		Record r(goodTitle, goodType);
 	}
 	catch(invalid_argument& exc)
 	{
@@ -53,7 +58,7 @@ TESTF(Record, ShouldNotCreateObjectWithInvalidTitle)
 	{
 		try
 		{
-			Record r(badTitle);
+			Record r(badTitle, goodType);
 		}
 		catch(invalid_argument& exc)
 		{
@@ -64,58 +69,72 @@ TESTF(Record, ShouldNotCreateObjectWithInvalidTitle)
 	}
 }
 
+TESTF(Record, ShouldNotCreateObjectWithInvalidType)
+{
+	try
+	{
+		Record r(goodTitle, badType);
+	}
+	catch (invalid_argument& exc)
+	{
+		ASSERT_TRUE(true);
+		return;
+	}
+	ASSERT_TRUE(false);
+}
+
 TESTF(Record, ShouldSetValidTitle)
 {
-	Record r(goodTitle);
+	Record r(goodTitle, goodType);
 	ASSERT_TRUE(r.setTitle(goodTitle2));
 	ASSERT_EQUALS(goodTitle2, r.getTitle());
 }
 
 TESTF(Record, ShouldNotSetInvalidTitle)
 {
-	Record r(goodTitle);
+	Record r(goodTitle, goodType);
 	ASSERT_TRUE( !r.setTitle(badTitles.at(0)) );
 	ASSERT_EQUALS(goodTitle, r.getTitle());
 }
 
 TESTF(Record, ShouldSetValueOfValidField)
 {
-	SiteRecord sr(goodTitle);
-	Record* r = dynamic_cast<Record*>(&sr);
-	ASSERT_TRUE(r->setFieldValue(validFieldName, validFieldValue));
+	Record r(goodTitle, goodType);
+	ASSERT_TRUE(r.setFieldValue(validFieldName, validFieldValue));
+
+	string actualValue = "";
+	ASSERT_TRUE(r.getFieldValue(validFieldName, actualValue));
+	ASSERT_EQUALS(validFieldValue, actualValue);
 }
 
 TESTF(Record, ShouldNotSetValueOfInvalidField)
 {
-	SiteRecord sr(goodTitle);
-	Record* r = dynamic_cast<Record*>(&sr);
-	ASSERT_TRUE( !r->setFieldValue(invalidFieldName, validFieldValue) );
+	Record r(goodTitle, goodType);
+	ASSERT_TRUE( !r.setFieldValue(invalidFieldName, validFieldValue) );
 }
 
-TESTF(Record, ShouldSetAndReturnValidValueOfValidFieldName)
+TESTF(Record, ShouldContainValidSetOfFields)
 {
-	SiteRecord sr(goodTitle);
-	Record* r = dynamic_cast<Record*>(&sr);
+	Record rsite(goodTitle, Record::SITE);
+	Record rbankcard(goodTitle, Record::BANKCARD);
+	Record rapplication(goodTitle, Record::APPLICATION);
 
-	string returnValue = "";
-	r->setFieldValue(validFieldName, validFieldValue);
-	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
-	ASSERT_EQUALS(validFieldValue, returnValue);
+	auto actualSite  = rsite.getFieldNames();
+	auto actualBankcard = rbankcard.getFieldNames();
+	auto actualApplication = rapplication.getFieldNames();
 
-	returnValue = "";
-	r->setFieldValue(validFieldName, validFieldValue2);
-	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
-	ASSERT_EQUALS(validFieldValue2, returnValue);
+	set<string> expectedSite {Record::site_link, Record::site_login,
+		Record::site_password, Record::site_comment};
+	set<string> expectedBankcard {Record::bankcard_number,
+		Record::bankcard_cardholder, Record::bankcard_validThruMonth,
+		Record::bankcard_validThruYear, Record::bankcard_cvv2cvc2,
+		Record::bankcard_comment};
+	set<string> expectedApplication {Record::application_login, Record::application_password,
+		Record::application_comment};
 
-	returnValue = "";
-	r->setFieldValue(invalidFieldName, validFieldValue);
-	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
-	ASSERT_EQUALS(validFieldValue2, returnValue);
-
-	returnValue = "";
-	r->setFieldValue(validFieldName, Record::emptyFieldValue);
-	ASSERT_TRUE(r->getFieldValue(validFieldName, returnValue));
-	ASSERT_EQUALS(Record::emptyFieldValue, returnValue);
+	ASSERT_EQUALS(expectedSite, actualSite);
+	ASSERT_EQUALS(expectedBankcard, actualBankcard);
+	ASSERT_EQUALS(expectedApplication, actualApplication);
 }
 
 #endif // RUN_UNIT_TESTS
