@@ -9,7 +9,7 @@
 #define RECORDTEXTCONVERTER_H_
 
 #include <string>
-#include <Record/Record.h>
+#include "Record.h"
 
 class RecordTextConverter {
 public:

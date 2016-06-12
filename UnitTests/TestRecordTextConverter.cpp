@@ -6,8 +6,8 @@
  */
 
 #include <memory>
-#include <UnitTest.h>
-#include <RecordTextConverter.h>
+#include "UnitTest.h"
+#include "RecordTextConverter.h"
 
 using std::string;
 

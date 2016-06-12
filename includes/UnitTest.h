@@ -8,7 +8,7 @@
 #ifndef INCLUDES_UNITTEST_H_
 #define INCLUDES_UNITTEST_H_
 
-#include <easyunit/test.h>
+#include "easyunit/test.h"
 #include <iostream>
 #define RUN_UNIT_TESTS
 
