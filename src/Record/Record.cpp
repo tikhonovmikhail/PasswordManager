@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <typeinfo>
+#include <algorithm>
 #include <Record/Record.h>
 #include "UnitTest.h"
 
@@ -145,8 +146,7 @@ bool Record::getFieldValue(const string& name, string& value) const
 	return true;
 }
 
-#ifdef RUN_UNIT_TESTS
-set<string> Record::getFieldNames()
+set<string> Record::getFieldNames() const
 {
 	set<string> names;
 	for (const auto& field: fields)
@@ -155,5 +155,4 @@ set<string> Record::getFieldNames()
 	}
 	return names;
 }
-#endif // RUN_UNIT_TESTS
 

@@ -3,8 +3,8 @@
 #include <Record/Record.h>
 
 using std::string;
-using std::vector;
 using std::set;
+using std::vector;
 using std::invalid_argument;
 
 #ifdef RUN_UNIT_TESTS

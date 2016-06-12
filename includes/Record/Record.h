@@ -40,11 +40,7 @@ public:
 	rtype getType() const;
 	bool setFieldValue(const std::string& name, const std::string& value);
 	bool getFieldValue(const std::string& name, std::string& value) const;
-
-#ifdef RUN_UNIT_TESTS
-	std::set<std::string> getFieldNames();
-#endif
-
+	std::set<std::string> getFieldNames() const;
 protected:
 	void initFields(const std::vector<std::string>& names);
 private:

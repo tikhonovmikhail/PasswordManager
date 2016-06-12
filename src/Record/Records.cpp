@@ -93,14 +93,13 @@ list<const Record*> Records::getByType(const Record::rtype type) const
 {
 	list<const Record*> recordsByType;
 
-	for (auto it = records.begin(); it != records.end(); ++it)
-	{
-		auto r = *it;
-		if (r->getType() == type)
-		{
-			recordsByType.push_back(r);
-		}
-	}
+	std::for_each(records.begin(), records.end(), [type, &recordsByType](const Record* record)
+			{
+				if (record->getType() == type)
+				{
+					recordsByType.push_back(record);
+				}
+			});
 
 	return recordsByType;
 }
