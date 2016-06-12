@@ -9,6 +9,7 @@
 #define INCLUDES_UNITTEST_H_
 
 #include <easyunit/test.h>
+#include <iostream>
 #define RUN_UNIT_TESTS
 
 #endif /* INCLUDES_UNITTEST_H_ */
