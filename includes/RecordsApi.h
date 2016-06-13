@@ -5,8 +5,8 @@
  *      Author: misha123
  */
 
-#ifndef API_H_
-#define API_H_
+#ifndef RECORDSAPI_H_
+#define RECORDSAPI_H_
 
 #include <string>
 #include <list>
@@ -95,4 +95,4 @@ std::string getKeyFromBase(const std::string& baseKey, const int startPos);
 
 }
 
-#endif /* API_H_ */
+#endif /* RECORDSAPI_H_ */
