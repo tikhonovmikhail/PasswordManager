@@ -5,6 +5,8 @@
  *      Author: misha123
  */
 
+#include <cstdlib>
+#include <ctime>
 #include "EncryptFunctions.h"
 
 using std::string;
@@ -37,4 +39,22 @@ string xorOperation(const string& text, string key)
 	}
 
 	return result;
+}
+
+string generateKey(const int keyLengthBytes)
+{
+	string key(keyLengthBytes, '\0');
+
+	srand(time(NULL));
+	for (int i = 0; i < keyLengthBytes; ++i)
+	{
+		key[i] = rand() % 256;
+	}
+
+	return key;
+}
+
+string getSubkey(const string& key, const int subkeyStartPos, const int subkeyLength)
+{
+	return key.substr(subkeyStartPos, subkeyLength);
 }
