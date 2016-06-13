@@ -10,6 +10,6 @@
 
 #include "easyunit/test.h"
 #include <iostream>
-#define RUN_UNIT_TESTS
+//#define RUN_UNIT_TESTS
 
 #endif /* INCLUDES_UNITTEST_H_ */
