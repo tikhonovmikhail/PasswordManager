@@ -9,7 +9,7 @@
 #include "RecordsApi.h"
 #include "Records.h"
 #include "Record.h"
-#include "RecordTextConverter.h"
+#include "RecordToTextConvertFunctions.h"
 #include "EncryptFunctions.h"
 
 using std::string;
@@ -300,7 +300,7 @@ void getRecordsTitles(list<string>& titles, const Recordtype type)
 
 bool importRecord(const string& text, string& title)
 {
-	auto record = RecordTextConverter::textToRecord(text);
+	auto record = textToRecord(text);
 	if (record)
 	{
 		records.add(record);
@@ -315,7 +315,7 @@ bool exportRecord(const string& title, string& text)
 	auto record = records.find(title);
 	if (record)
 	{
-		text = RecordTextConverter::recordToText(record);
+		text = recordToText(record);
 	}
 
 	return !text.empty();
