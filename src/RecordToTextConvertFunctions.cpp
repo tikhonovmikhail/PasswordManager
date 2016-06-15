@@ -54,14 +54,14 @@ Record* textToRecord(const string& text)
 	int typeint;
 	if ( !stringToInt(typestr, typeint) )
 	{
-		typeint = Record::rtype::END;
+		typeint = Record::Type::END;
 	}
 
 	// Check if title and type are valid
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype(typeint));
+		record = new Record(title, Record::Type(typeint));
 	}
 	catch(invalid_argument& exc)
 	{

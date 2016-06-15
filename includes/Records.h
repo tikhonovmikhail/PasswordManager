@@ -20,7 +20,7 @@ public:
 	bool remove(const std::string& title);
 	bool replace(const std::string& title, const Record* record);
 	const std::list<const Record*>& getAll() const;
-	std::list<const Record*> getByType(const Record::rtype type) const;
+	std::list<const Record*> getByType(const Record::Type type) const;
 private:
 	std::list<const Record*> records;
 };

@@ -17,7 +17,7 @@
 
 class Record {
 public:
-	enum rtype {SITE, BANKCARD, APPLICATION, END};
+	enum Type {SITE, BANKCARD, APPLICATION, END};
 
 	static const std::string site_link;
 	static const std::string site_login;
@@ -34,10 +34,10 @@ public:
 	static const std::string application_comment;
 
 	static const std::string emptyFieldValue;
-	Record(const std::string& title, const rtype type) throw(std::invalid_argument);
+	Record(const std::string& title, const Type type) throw(std::invalid_argument);
 	bool setTitle(const std::string& title);
 	std::string getTitle() const;
-	rtype getType() const;
+	Type getType() const;
 	bool setFieldValue(const std::string& name, const std::string& value);
 	bool getFieldValue(const std::string& name, std::string& value) const;
 	std::set<std::string> getFieldNames() const;
@@ -45,12 +45,12 @@ protected:
 	void initFields(const std::vector<std::string>& names);
 private:
 	std::string title;
-	rtype type;
+	Type type;
 	std::map<std::string,std::string> fields;
 	bool isValidTitle(const std::string& title) const;
-	bool setType(const rtype type);
+	bool setType(const Type type);
 	bool isValidFieldName(const std::string& name) const;
-	bool isValidType(const rtype type) const;
+	bool isValidType(const Type type) const;
 };
 
 #endif /* INCLUDES_RECORD_H_ */

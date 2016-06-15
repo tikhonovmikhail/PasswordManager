@@ -15,7 +15,7 @@ using std::string;
 
 DECLARE(RecordToTextConvertFunctions)
 string title;
-Record::rtype type;
+Record::Type type;
 string link;
 string login;
 string password;
@@ -110,7 +110,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyType)
 TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfBadType)
 {
 	string textWithBadType = title + "\n" +
-			    std::to_string(Record::rtype::END) + "\n" +
+			    std::to_string(Record::Type::END) + "\n" +
 				// in sorted order
 				comment + "\n" +
 				link + "\n" +

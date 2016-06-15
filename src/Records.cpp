@@ -89,7 +89,7 @@ const list<const Record*>& Records::getAll() const
 	return records;
 }
 
-list<const Record*> Records::getByType(const Record::rtype type) const
+list<const Record*> Records::getByType(const Record::Type type) const
 {
 	list<const Record*> recordsByType;
 

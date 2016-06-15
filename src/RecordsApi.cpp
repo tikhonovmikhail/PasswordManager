@@ -34,7 +34,7 @@ Record* createSiteRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::SITE);
+		record = new Record(title, Record::Type::SITE);
 	}
 	catch(invalid_argument&)
 	{
@@ -60,7 +60,7 @@ Record* createBankcardRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::BANKCARD);
+		record = new Record(title, Record::Type::BANKCARD);
 	}
 	catch(invalid_argument&)
 	{
@@ -85,7 +85,7 @@ Record* createApplicationRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::APPLICATION);
+		record = new Record(title, Record::Type::APPLICATION);
 	}
 	catch(invalid_argument&)
 	{
@@ -290,7 +290,7 @@ void getRecordsTitles(list<string>& titles, const Recordtype type)
 	}
 	else
 	{
-		auto rlist = records.getByType( Record::rtype(type) );
+		auto rlist = records.getByType( Record::Type(type) );
 		for (const auto& r: rlist)
 		{
 			titles.push_front(r->getTitle());

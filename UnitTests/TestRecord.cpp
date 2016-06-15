@@ -13,9 +13,9 @@ DECLARE(Record)
 string goodTitle;
 string goodTitle2;
 vector<string> badTitles;
-Record::rtype goodType;
-Record::rtype goodType2;
-Record::rtype badType;
+Record::Type goodType;
+Record::Type goodType2;
+Record::Type badType;
 string validFieldValue;
 string validFieldValue2;
 string validFieldName;
@@ -27,9 +27,9 @@ SETUP(Record)
 	goodTitle = "my title";
 	goodTitle2 = "foo";
 	badTitles = {""}; // Add examples of bad names here
-	goodType = Record::rtype::SITE;
-	goodType2 = Record::rtype::BANKCARD;
-	badType = Record::rtype(146);
+	goodType = Record::Type::SITE;
+	goodType2 = Record::Type::BANKCARD;
+	badType = Record::Type(146);
 	validFieldValue = "v";
 	validFieldValue2 = "v2";
 	validFieldName = Record::site_login;
