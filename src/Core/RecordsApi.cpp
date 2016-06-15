@@ -6,11 +6,12 @@
  */
 
 #include <stdexcept>
-#include "RecordsApi.h"
-#include "Records.h"
-#include "Record.h"
-#include "RecordToTextConvertFunctions.h"
-#include "EncryptFunctions.h"
+
+#include <Core/Record.h>
+#include <Core/Records.h>
+#include <Core/EncryptFunctions.h>
+#include <Core/RecordToTextConvertFunctions.h>
+#include <Core/RecordsApi.h>
 
 using std::string;
 using std::list;

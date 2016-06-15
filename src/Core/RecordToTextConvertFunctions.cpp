@@ -9,7 +9,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
-#include "RecordToTextConvertFunctions.h"
+#include <Core/RecordToTextConvertFunctions.h>
 
 using std::string;
 using std::set;

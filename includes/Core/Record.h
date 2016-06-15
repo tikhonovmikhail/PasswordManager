@@ -13,7 +13,6 @@
 #include <set>
 #include <vector>
 #include <stdexcept>
-#include "UnitTest.h"
 
 class Record {
 public:

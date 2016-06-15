@@ -5,8 +5,8 @@
  *      Author: misha123
  */
 
-#include "UnitTest.h"
-#include "EncryptFunctions.h"
+#include <UnitTest.h>
+#include <Core/EncryptFunctions.h>
 
 using std::string;
 

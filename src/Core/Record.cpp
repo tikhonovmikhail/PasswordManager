@@ -8,8 +8,7 @@
 #include <vector>
 #include <typeinfo>
 #include <algorithm>
-#include "Record.h"
-#include "UnitTest.h"
+#include <Core/Record.h>
 
 using std::string;
 using std::vector;

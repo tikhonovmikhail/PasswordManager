@@ -4,9 +4,8 @@
  *  Created on: Jun 11, 2016
  *      Author: misha123
  */
-
 #include <algorithm>
-#include "Records.h"
+#include <Core/Records.h>
 
 using std::string;
 using std::list;

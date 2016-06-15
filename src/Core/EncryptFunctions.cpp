@@ -7,7 +7,7 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "EncryptFunctions.h"
+#include <Core/EncryptFunctions.h>
 
 using std::string;
 
