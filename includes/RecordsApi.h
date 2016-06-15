@@ -13,7 +13,7 @@
 
 namespace RecordsApi {
 
-enum recordtype {SITE, BANKCARD, APPLICATION, UNKNOWN};
+enum class Recordtype {SITE, BANKCARD, APPLICATION, UNKNOWN};
 
 bool addSiteRecord(const std::string& title,
 		const std::string& link,
@@ -77,9 +77,9 @@ bool getApplicationRecord(const std::string& title,
 		std::string& password,
 		std::string& comment);
 
-bool getRecordType(const std::string& title, recordtype& type);
+bool getRecordType(const std::string& title, Recordtype& type);
 
-void getRecordsTitles(std::list<std::string>& titles, const recordtype type = UNKNOWN);
+void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Recordtype::UNKNOWN);
 
 bool importRecord(const std::string& text, std::string& title);
 

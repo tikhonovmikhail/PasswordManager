@@ -266,7 +266,7 @@ bool getApplicationRecord(const string& title,
 			record->getFieldValue(Record::application_comment, comment);
 }
 
-bool getRecordType(const string& title, recordtype& type)
+bool getRecordType(const string& title, Recordtype& type)
 {
 	auto record = records.find(title);
 	if (!record)
@@ -274,13 +274,13 @@ bool getRecordType(const string& title, recordtype& type)
 		return false;
 	}
 
-	type = recordtype(record->getType());
+	type = Recordtype(record->getType());
 	return true;
 }
 
-void getRecordsTitles(list<string>& titles, const recordtype type)
+void getRecordsTitles(list<string>& titles, const Recordtype type)
 {
-	if (type == UNKNOWN)
+	if (type == Recordtype::UNKNOWN)
 	{
 		auto rlist = records.getAll();
 		for (const auto& r: rlist)
