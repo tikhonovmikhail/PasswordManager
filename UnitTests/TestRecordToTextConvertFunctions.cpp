@@ -1,21 +1,21 @@
 /*
- * TestRecordTextConverter.cpp
+ * TestRecordToTextConvertFunctions.cpp
  *
- *  Created on: Jun 12, 2016
- *      Author: misha123
+ *  Created on: Jun 15, 2016
+ *      Author: mt
  */
 
 #include <memory>
 #include "UnitTest.h"
-#include "RecordTextConverter.h"
+#include "RecordToTextConvertFunctions.h"
 
 using std::string;
 
 #ifdef RUN_UNIT_TESTS
 
-DECLARE(RecordTextConverter)
+DECLARE(RecordToTextConvertFunctions)
 string title;
-Record::rtype type;
+Record::Type type;
 string link;
 string login;
 string password;
@@ -23,7 +23,7 @@ string comment;
 string validText;
 END_DECLARE
 
-SETUP(RecordTextConverter)
+SETUP(RecordToTextConvertFunctions)
 {
 	title = "my title";
 	type = Record::SITE;
@@ -40,9 +40,9 @@ SETUP(RecordTextConverter)
 		   password + "\n";
 }
 
-TEARDOWN(RecordTextConverter) {}
+TEARDOWN(RecordToTextConvertFunctions) {}
 
-TESTF(RecordTextConverter, ShouldConvertValidRecordToText)
+TESTF(RecordToTextConvertFunctions, ShouldConvertValidRecordToText)
 {
 	std::unique_ptr<Record> record(new Record(title, type));
 	record.get()->setFieldValue(Record::site_link, link);
@@ -50,17 +50,17 @@ TESTF(RecordTextConverter, ShouldConvertValidRecordToText)
 	record.get()->setFieldValue(Record::site_password, password);
 	record.get()->setFieldValue(Record::site_comment, comment);
 
-	ASSERT_EQUALS(validText, RecordTextConverter::recordToText(record.get()));
+	ASSERT_EQUALS(validText, recordToText(record.get()));
 }
 
-TESTF(RecordTextConverter, ShouldReturnEmptyStringIfRecordIsNull)
+TESTF(RecordToTextConvertFunctions, ShouldReturnEmptyStringIfRecordIsNull)
 {
-	ASSERT_EQUALS("", RecordTextConverter::recordToText(nullptr));
+	ASSERT_EQUALS("", recordToText(nullptr));
 }
 
-TESTF(RecordTextConverter, ShouldConvertValidTextToRecord)
+TESTF(RecordToTextConvertFunctions, ShouldConvertValidTextToRecord)
 {
-	Record* record = RecordTextConverter::textToRecord(validText);
+	std::unique_ptr<Record> record( textToRecord(validText) );
 	string value;
 
 	ASSERT_EQUALS(title, record->getTitle());
@@ -81,11 +81,9 @@ TESTF(RecordTextConverter, ShouldConvertValidTextToRecord)
 	value.clear();
 	record->getFieldValue(Record::site_comment, value);
 	ASSERT_EQUALS(comment, value);
-
-	delete record;
 }
 
-TESTF(RecordTextConverter, ShouldReturnNullIfEmptyTitle)
+TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyTitle)
 {
 	string textWithoutTitle = "\n" +
 			   std::to_string(type) + "\n" +
@@ -94,10 +92,10 @@ TESTF(RecordTextConverter, ShouldReturnNullIfEmptyTitle)
 			   link + "\n" +
 			   login + "\n" +
 			   password + "\n";
-	ASSERT_EQUALS(nullptr, RecordTextConverter::textToRecord(textWithoutTitle));
+	ASSERT_EQUALS(nullptr, textToRecord(textWithoutTitle));
 }
 
-TESTF(RecordTextConverter, ShouldReturnNullIfEmptyType)
+TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyType)
 {
 	string textWithEmptyType = title + "\n" +
 				"" + "\n" +
@@ -106,22 +104,22 @@ TESTF(RecordTextConverter, ShouldReturnNullIfEmptyType)
 				link + "\n" +
 				login + "\n" +
 				password + "\n";
-	ASSERT_EQUALS(nullptr, RecordTextConverter::textToRecord(textWithEmptyType));
+	ASSERT_EQUALS(nullptr, textToRecord(textWithEmptyType));
 }
 
-TESTF(RecordTextConverter, ShouldReturnNullIfBadType)
+TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfBadType)
 {
 	string textWithBadType = title + "\n" +
-			    std::to_string(Record::rtype::END) + "\n" +
+			    std::to_string(Record::Type::END) + "\n" +
 				// in sorted order
 				comment + "\n" +
 				link + "\n" +
 				login + "\n" +
 				password + "\n";
-	ASSERT_EQUALS(nullptr, RecordTextConverter::textToRecord(textWithBadType));
+	ASSERT_EQUALS(nullptr, textToRecord(textWithBadType));
 }
 
-TESTF(RecordTextConverter, ShouldReturnNullIfTypeHasBadFormat)
+TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfTypeHasBadFormat)
 {
 	string textWithBadTypeFormat = title + "\n" +
 			    "1foo" + "\n" +
@@ -130,10 +128,10 @@ TESTF(RecordTextConverter, ShouldReturnNullIfTypeHasBadFormat)
 				link + "\n" +
 				login + "\n" +
 				password + "\n";
-	ASSERT_EQUALS(nullptr, RecordTextConverter::textToRecord(textWithBadTypeFormat));
+	ASSERT_EQUALS(nullptr, textToRecord(textWithBadTypeFormat));
 }
 
-TESTF(RecordTextConverter, ShouldReturnNullIfBadFields)
+TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfBadFields)
 {
 	string textWithOneFieldLost = title + "\n" +
 			   std::to_string(type) + "\n" +
@@ -141,15 +139,13 @@ TESTF(RecordTextConverter, ShouldReturnNullIfBadFields)
 			   comment + "\n" +
 			   link + "\n" +
 			   password + "\n";
-	ASSERT_EQUALS(nullptr, RecordTextConverter::textToRecord(textWithOneFieldLost));
+	ASSERT_EQUALS(nullptr, textToRecord(textWithOneFieldLost));
 }
 
-TESTF(RecordTextConverter, ShouldWorkInBothDirections)
+TESTF(RecordToTextConvertFunctions, ShouldWorkInBothDirections)
 {
-	std::unique_ptr<Record> record (RecordTextConverter::textToRecord(validText));
-	ASSERT_EQUALS(validText, RecordTextConverter::recordToText(record.get()));
+	std::unique_ptr<Record> record (textToRecord(validText));
+	ASSERT_EQUALS(validText, recordToText(record.get()));
 }
 
 #endif // RUN_UNIT_TESTS
-
-

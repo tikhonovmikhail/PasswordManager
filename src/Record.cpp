@@ -34,7 +34,7 @@ const string Record::application_login = "login";
 const string Record::application_password = "password";
 const string Record::application_comment = "comment";
 
-Record::Record(const string& title, const rtype type) throw(invalid_argument)
+Record::Record(const string& title, const Type type) throw(invalid_argument)
 {
 	if (!isValidTitle(title))
 	{
@@ -73,7 +73,7 @@ Record::Record(const string& title, const rtype type) throw(invalid_argument)
 
 bool Record::setTitle(const string& title)
 {
-	bool isValid = isValidTitle(title);
+	auto isValid = isValidTitle(title);
 	if (isValid)
 	{
 		this->title = title;
@@ -81,9 +81,9 @@ bool Record::setTitle(const string& title)
 	return isValid;
 }
 
-bool Record::setType(const rtype type)
+bool Record::setType(const Type type)
 {
-	bool isValid = isValidType(type);
+	auto isValid = isValidType(type);
 	if (isValid)
 	{
 		this->type = type;
@@ -91,7 +91,7 @@ bool Record::setType(const rtype type)
 	return isValid;
 }
 
-Record::rtype Record::getType() const
+Record::Type Record::getType() const
 {
 	return type;
 }
@@ -106,9 +106,9 @@ bool Record::isValidTitle(const string& title) const
 	return !title.empty();
 }
 
-bool Record::isValidType(const rtype type) const
+bool Record::isValidType(const Type type) const
 {
-	return type < rtype::END;
+	return type < Type::END;
 }
 
 void Record::initFields(const vector<string>& names)

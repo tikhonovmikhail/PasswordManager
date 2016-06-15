@@ -1,16 +1,15 @@
 /*
- * RecordTextConverter.cpp
+ * RecordToTextConvertFunctions.cpp
  *
- *  Created on: Jun 12, 2016
- *      Author: misha123
+ *  Created on: Jun 15, 2016
+ *      Author: mt
  */
 
 #include <set>
 #include <vector>
 #include <algorithm>
 #include <sstream>
-
-#include "RecordTextConverter.h"
+#include "RecordToTextConvertFunctions.h"
 
 using std::string;
 using std::set;
@@ -19,7 +18,9 @@ using std::stringstream;
 using std::invalid_argument;
 using std::out_of_range;
 
-string RecordTextConverter::recordToText(const Record* record)
+static bool stringToInt(const string& str, int& result);
+
+string recordToText(const Record* record)
 {
 	string text;
 
@@ -34,14 +35,13 @@ string RecordTextConverter::recordToText(const Record* record)
 					string value;
 					record->getFieldValue(field, value);
 					text += value + "\n";
-
 				});
 	}
 
 	return text;
 }
 
-Record* RecordTextConverter::textToRecord(const string& text)
+Record* textToRecord(const string& text)
 {
 	stringstream ss(text);
 
@@ -54,14 +54,14 @@ Record* RecordTextConverter::textToRecord(const string& text)
 	int typeint;
 	if ( !stringToInt(typestr, typeint) )
 	{
-		typeint = Record::rtype::END;
+		typeint = Record::Type::END;
 	}
 
 	// Check if title and type are valid
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype(typeint));
+		record = new Record(title, Record::Type(typeint));
 	}
 	catch(invalid_argument& exc)
 	{
@@ -70,8 +70,8 @@ Record* RecordTextConverter::textToRecord(const string& text)
 
 	// Read fields
 	auto fieldNames = record->getFieldNames();
-	size_t nFields = fieldNames.size();
-	size_t nLinesRead = 0;
+	auto nFields = fieldNames.size();
+	auto nLinesRead = 0;
 	for (const auto& name: fieldNames)
 	{
 		string value;
@@ -98,7 +98,7 @@ Record* RecordTextConverter::textToRecord(const string& text)
 	}
 }
 
-bool RecordTextConverter::stringToInt(const string& str, int& result)
+static bool stringToInt(const string& str, int& result)
 {
     try
     {
@@ -115,3 +115,6 @@ bool RecordTextConverter::stringToInt(const string& str, int& result)
         return false;
     }
 }
+
+
+

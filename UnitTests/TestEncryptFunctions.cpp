@@ -68,26 +68,26 @@ TESTF(EncryptFunctions, ShouldEncryptAndDecryptTextLengthEqualToKeyLength)
 
 TESTF(EncryptFunctions, ShouldGenerateKeyOfGivenLength)
 {
-	int keyLength = 1000;
-	string key = generateKey(keyLength);
+	auto keyLength = 1000;
+	auto key = generateKey(keyLength);
 	ASSERT_EQUALS(keyLength, key.length());
 }
 
 TESTF(EncryptFunctions, ShouldExtractSubkeyFromKeyWhenValidSubkeyLength)
 {
-	int subkeyStartPos = 1;
-	int subkeyLength = keyToEncryptLength - subkeyStartPos - 1;
+	auto subkeyStartPos = 1;
+	auto subkeyLength = keyToEncryptLength - subkeyStartPos - 1;
 
-	string subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
+	auto subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
 	ASSERT_EQUALS("nviheqndsbvjsdfiwefcbsdjvsofiuhaecfw[aeinvwvbvoib", subkey);
 }
 
 TESTF(EncryptFunctions, ShouldExtractSubkeyFromKeyWhenTooLongSubkeyLength)
 {
-	int subkeyStartPos = 1;
-	int subkeyLength = keyToEncryptLength + 100;
+	auto subkeyStartPos = 1;
+	auto subkeyLength = keyToEncryptLength + 100;
 
-	string subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
+	auto subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
 	ASSERT_EQUALS("nviheqndsbvjsdfiwefcbsdjvsofiuhaecfw[aeinvwvbvoibv", subkey);
 }
 

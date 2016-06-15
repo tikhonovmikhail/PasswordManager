@@ -9,7 +9,7 @@
 #include "RecordsApi.h"
 #include "Records.h"
 #include "Record.h"
-#include "RecordTextConverter.h"
+#include "RecordToTextConvertFunctions.h"
 #include "EncryptFunctions.h"
 
 using std::string;
@@ -34,7 +34,7 @@ Record* createSiteRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::SITE);
+		record = new Record(title, Record::Type::SITE);
 	}
 	catch(invalid_argument&)
 	{
@@ -60,7 +60,7 @@ Record* createBankcardRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::BANKCARD);
+		record = new Record(title, Record::Type::BANKCARD);
 	}
 	catch(invalid_argument&)
 	{
@@ -85,7 +85,7 @@ Record* createApplicationRecord(const string& title,
 	Record* record = nullptr;
 	try
 	{
-		record = new Record(title, Record::rtype::APPLICATION);
+		record = new Record(title, Record::Type::APPLICATION);
 	}
 	catch(invalid_argument&)
 	{
@@ -105,7 +105,7 @@ bool addSiteRecord(const string& title,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createSiteRecord(title, link, login, password, comment);
+	auto record = createSiteRecord(title, link, login, password, comment);
 	if (record)
 	{
 		records.add(record);
@@ -122,7 +122,7 @@ bool addBankcardRecord(const string& title,
 		const string& cvv2cvc2,
 		const string& comment)
 {
-	Record* record = createBankcardRecord(title, number, cardholder,
+	auto record = createBankcardRecord(title, number, cardholder,
 			validThruMonth, validThruYear, cvv2cvc2, comment);
 	if (record)
 	{
@@ -137,7 +137,7 @@ bool addApplicationRecord(const string& title,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createApplicationRecord(title, login, password, comment);
+	auto record = createApplicationRecord(title, login, password, comment);
 	if (record)
 	{
 		records.add(record);
@@ -158,7 +158,7 @@ bool replaceWithSiteRecord(const string& oldTitle,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createSiteRecord(title, link, login, password, comment);
+	auto record = createSiteRecord(title, link, login, password, comment);
 	if ( records.replace(oldTitle, record) )
 	{
 		return true;
@@ -179,7 +179,7 @@ bool replaceWithBankcardRecord(const string& oldTitle,
 		const string& cvv2cvc2,
 		const string& comment)
 {
-	Record* record = createBankcardRecord(title, number, cardholder,
+	auto record = createBankcardRecord(title, number, cardholder,
 			validThruMonth, validThruYear, cvv2cvc2, comment);
 	if ( records.replace(oldTitle, record) )
 	{
@@ -236,7 +236,7 @@ bool getBankcardRecord(const string& title,
 		string& cvv2cvc2,
 		string& comment)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
@@ -255,7 +255,7 @@ bool getApplicationRecord(const string& title,
 		string& password,
 		string& comment)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
@@ -266,21 +266,21 @@ bool getApplicationRecord(const string& title,
 			record->getFieldValue(Record::application_comment, comment);
 }
 
-bool getRecordType(const string& title, recordtype& type)
+bool getRecordType(const string& title, Recordtype& type)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
 	}
 
-	type = recordtype(record->getType());
+	type = Recordtype(record->getType());
 	return true;
 }
 
-void getRecordsTitles(list<string>& titles, const recordtype type)
+void getRecordsTitles(list<string>& titles, const Recordtype type)
 {
-	if (type == UNKNOWN)
+	if (type == Recordtype::UNKNOWN)
 	{
 		auto rlist = records.getAll();
 		for (const auto& r: rlist)
@@ -290,7 +290,7 @@ void getRecordsTitles(list<string>& titles, const recordtype type)
 	}
 	else
 	{
-		auto rlist = records.getByType( Record::rtype(type) );
+		auto rlist = records.getByType( Record::Type(type) );
 		for (const auto& r: rlist)
 		{
 			titles.push_front(r->getTitle());
@@ -300,7 +300,7 @@ void getRecordsTitles(list<string>& titles, const recordtype type)
 
 bool importRecord(const string& text, string& title)
 {
-	Record* record = RecordTextConverter::textToRecord(text);
+	auto record = textToRecord(text);
 	if (record)
 	{
 		records.add(record);
@@ -312,10 +312,10 @@ bool importRecord(const string& text, string& title)
 
 bool exportRecord(const string& title, string& text)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (record)
 	{
-		text = RecordTextConverter::recordToText(record);
+		text = recordToText(record);
 	}
 
 	return !text.empty();
