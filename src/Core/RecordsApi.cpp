@@ -301,7 +301,7 @@ void getRecordsTitles(list<string>& titles, const Recordtype type)
 
 bool importRecord(const string& text, string& title)
 {
-	auto record = textToRecord(text);
+	auto record = textToRecord( unwrapTextFromFieldNames(text) );
 	if (record)
 	{
 		records.add(record);
@@ -317,6 +317,7 @@ bool exportRecord(const string& title, string& text)
 	if (record)
 	{
 		text = recordToText(record);
+		text = wrapTextWithFieldNames(text, record->getType());
 	}
 
 	return !text.empty();

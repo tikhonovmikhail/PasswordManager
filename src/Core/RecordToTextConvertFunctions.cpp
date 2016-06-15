@@ -98,6 +98,59 @@ Record* textToRecord(const string& text)
 	}
 }
 
+string wrapTextWithFieldNames(const string& text, const Record::Type recordType)
+{
+	string result;
+	stringstream ss(text);
+
+	string title;
+	std::getline(ss, title);
+	result += "title:" + title + "\n";
+	string type;
+	std::getline(ss, type);
+	result += "type:" + type + "\n";
+
+	set<string> fieldNames;
+	try
+	{
+		fieldNames = Record("title", recordType).getFieldNames();
+	}
+	catch (invalid_argument&)
+	{
+		return "";
+	}
+	for(const auto& name: fieldNames)
+	{
+		string value;
+		std::getline(ss, value);
+		result += name + ":" + value + "\n";
+	}
+
+	return result;
+}
+
+string unwrapTextFromFieldNames(const string& text)
+{
+	string result;
+	stringstream ss(text);
+
+	string line;
+	while (std::getline(ss, line))
+	{
+		auto fieldNameLastChar = line.find(':');
+		if (fieldNameLastChar == string::npos)
+		{
+			return "";
+		}
+		else
+		{
+			result += line.substr(fieldNameLastChar + 1) + "\n";
+		}
+	}
+
+	return result;
+}
+
 static bool stringToInt(const string& str, int& result)
 {
     try
@@ -115,6 +168,7 @@ static bool stringToInt(const string& str, int& result)
         return false;
     }
 }
+
 
 
 

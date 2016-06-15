@@ -7,11 +7,55 @@
 
 #include <memory>
 #include <UnitTest.h>
+#include <Core/Record.h>
 #include <Core/RecordToTextConvertFunctions.h>
 
 using std::string;
 
 #ifdef RUN_UNIT_TESTS
+
+DECLARE(RecordToTextWrapFieldsFunctions)
+string unwrappedText;
+string wrappedText;
+END_DECLARE
+
+SETUP(RecordToTextWrapFieldsFunctions)
+{
+	string title = "my title";
+	string type = std::to_string(Record::Type::SITE);
+	string link = "http://vk.com";
+	string login = "misha";
+	string password = "12345678";
+	string comment = "my comment";
+
+	unwrappedText =
+			title + "\n" +
+			type + "\n" +
+			comment + "\n" +
+			link + "\n" +
+			login + "\n" +
+			password + "\n";
+
+	wrappedText =
+			"title:" + title + "\n" +
+			"type:" + type + "\n" +
+			Record::site_comment + ":" + comment + "\n" +
+			Record::site_link + ":" + link + "\n" +
+			Record::site_login + ":" + login + "\n" +
+			Record::site_password + ":" + password + "\n";
+}
+
+TEARDOWN(RecordToTextWrapFieldsFunctions) {}
+
+TESTF(RecordToTextWrapFieldsFunctions, ShouldWrapAndUnwrap)
+{
+	auto wrapped = wrapTextWithFieldNames(unwrappedText, Record::Type::SITE);
+	auto unwrapped = unwrapTextFromFieldNames(wrapped);
+
+	ASSERT_TRUE(wrapped != unwrapped);
+	ASSERT_EQUALS(wrappedText, wrapped);
+	ASSERT_EQUALS(unwrappedText, unwrapped);
+}
 
 DECLARE(RecordToTextConvertFunctions)
 string title;

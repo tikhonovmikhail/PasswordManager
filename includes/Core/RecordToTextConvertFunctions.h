@@ -13,5 +13,7 @@
 
 std::string recordToText(const Record* record);
 Record* textToRecord(const std::string& text);
+std::string wrapTextWithFieldNames(const std::string& text, const Record::Type recordType);
+std::string unwrapTextFromFieldNames(const std::string& text);
 
 #endif /* RECORDTOTEXTCONVERTFUNCTIONS_H_ */
