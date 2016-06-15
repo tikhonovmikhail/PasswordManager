@@ -60,7 +60,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnEmptyStringIfRecordIsNull)
 
 TESTF(RecordToTextConvertFunctions, ShouldConvertValidTextToRecord)
 {
-	auto record = textToRecord(validText);
+	std::unique_ptr<Record> record( textToRecord(validText) );
 	string value;
 
 	ASSERT_EQUALS(title, record->getTitle());
@@ -81,8 +81,6 @@ TESTF(RecordToTextConvertFunctions, ShouldConvertValidTextToRecord)
 	value.clear();
 	record->getFieldValue(Record::site_comment, value);
 	ASSERT_EQUALS(comment, value);
-
-	delete record;
 }
 
 TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyTitle)
