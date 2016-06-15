@@ -73,7 +73,7 @@ Record::Record(const string& title, const rtype type) throw(invalid_argument)
 
 bool Record::setTitle(const string& title)
 {
-	bool isValid = isValidTitle(title);
+	auto isValid = isValidTitle(title);
 	if (isValid)
 	{
 		this->title = title;
@@ -83,7 +83,7 @@ bool Record::setTitle(const string& title)
 
 bool Record::setType(const rtype type)
 {
-	bool isValid = isValidType(type);
+	auto isValid = isValidType(type);
 	if (isValid)
 	{
 		this->type = type;

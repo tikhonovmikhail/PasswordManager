@@ -60,7 +60,7 @@ TESTF(RecordTextConverter, ShouldReturnEmptyStringIfRecordIsNull)
 
 TESTF(RecordTextConverter, ShouldConvertValidTextToRecord)
 {
-	Record* record = RecordTextConverter::textToRecord(validText);
+	auto record = RecordTextConverter::textToRecord(validText);
 	string value;
 
 	ASSERT_EQUALS(title, record->getTitle());

@@ -70,8 +70,8 @@ Record* RecordTextConverter::textToRecord(const string& text)
 
 	// Read fields
 	auto fieldNames = record->getFieldNames();
-	size_t nFields = fieldNames.size();
-	size_t nLinesRead = 0;
+	auto nFields = fieldNames.size();
+	auto nLinesRead = 0;
 	for (const auto& name: fieldNames)
 	{
 		string value;

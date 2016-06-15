@@ -105,7 +105,7 @@ bool addSiteRecord(const string& title,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createSiteRecord(title, link, login, password, comment);
+	auto record = createSiteRecord(title, link, login, password, comment);
 	if (record)
 	{
 		records.add(record);
@@ -122,7 +122,7 @@ bool addBankcardRecord(const string& title,
 		const string& cvv2cvc2,
 		const string& comment)
 {
-	Record* record = createBankcardRecord(title, number, cardholder,
+	auto record = createBankcardRecord(title, number, cardholder,
 			validThruMonth, validThruYear, cvv2cvc2, comment);
 	if (record)
 	{
@@ -137,7 +137,7 @@ bool addApplicationRecord(const string& title,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createApplicationRecord(title, login, password, comment);
+	auto record = createApplicationRecord(title, login, password, comment);
 	if (record)
 	{
 		records.add(record);
@@ -158,7 +158,7 @@ bool replaceWithSiteRecord(const string& oldTitle,
 		const string& password,
 		const string& comment)
 {
-	Record* record = createSiteRecord(title, link, login, password, comment);
+	auto record = createSiteRecord(title, link, login, password, comment);
 	if ( records.replace(oldTitle, record) )
 	{
 		return true;
@@ -179,7 +179,7 @@ bool replaceWithBankcardRecord(const string& oldTitle,
 		const string& cvv2cvc2,
 		const string& comment)
 {
-	Record* record = createBankcardRecord(title, number, cardholder,
+	auto record = createBankcardRecord(title, number, cardholder,
 			validThruMonth, validThruYear, cvv2cvc2, comment);
 	if ( records.replace(oldTitle, record) )
 	{
@@ -236,7 +236,7 @@ bool getBankcardRecord(const string& title,
 		string& cvv2cvc2,
 		string& comment)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
@@ -255,7 +255,7 @@ bool getApplicationRecord(const string& title,
 		string& password,
 		string& comment)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
@@ -268,7 +268,7 @@ bool getApplicationRecord(const string& title,
 
 bool getRecordType(const string& title, recordtype& type)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (!record)
 	{
 		return false;
@@ -300,7 +300,7 @@ void getRecordsTitles(list<string>& titles, const recordtype type)
 
 bool importRecord(const string& text, string& title)
 {
-	Record* record = RecordTextConverter::textToRecord(text);
+	auto record = RecordTextConverter::textToRecord(text);
 	if (record)
 	{
 		records.add(record);
@@ -312,7 +312,7 @@ bool importRecord(const string& text, string& title)
 
 bool exportRecord(const string& title, string& text)
 {
-	const Record* record = records.find(title);
+	auto record = records.find(title);
 	if (record)
 	{
 		text = RecordTextConverter::recordToText(record);

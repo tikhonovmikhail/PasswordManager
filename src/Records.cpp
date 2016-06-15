@@ -69,8 +69,8 @@ bool Records::replace(const string& title, const Record* record)
 	}
 	else
 	{
-		bool titleIsChanged = (title != record->getTitle());
-		bool titleIsUnique = (find(record->getTitle()) == nullptr);
+		auto titleIsChanged = (title != record->getTitle());
+		auto titleIsUnique = (find(record->getTitle()) == nullptr);
 		if (!titleIsChanged || titleIsUnique)
 		{
 			this->remove(title);

@@ -102,7 +102,7 @@ TESTF(Record, ShouldSetValueOfValidField)
 	Record r(goodTitle, goodType);
 	ASSERT_TRUE(r.setFieldValue(validFieldName, validFieldValue));
 
-	string actualValue = "";
+	auto actualValue = string("");
 	ASSERT_TRUE(r.getFieldValue(validFieldName, actualValue));
 	ASSERT_EQUALS(validFieldValue, actualValue);
 }
