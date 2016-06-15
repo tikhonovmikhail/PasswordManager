@@ -89,7 +89,7 @@ Record* createApplicationRecord(const string& title,
 	}
 	catch(invalid_argument&)
 	{
-		return false;
+		return nullptr;
 	}
 
 	record->setFieldValue(Record::application_login, login);
