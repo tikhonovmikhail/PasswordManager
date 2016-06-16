@@ -21,9 +21,9 @@ using std::invalid_argument;
 
 namespace RecordsApi {
 
-static Records records;
+Records records;
 
-static int getSubkeyLength()
+int getSubkeyLength()
 {
 	return 1763;
 }
