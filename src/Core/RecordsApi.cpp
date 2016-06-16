@@ -368,12 +368,12 @@ list<string> xcryptRecords(const list<string>& texts, const string& key,
 
 list<string> encryptRecords(const list<string>& texts, const string& key)
 {
-	return xcryptRecords(texts, key, encrypt);
+	return xcryptRecords(texts, key, encryptText);
 }
 
 list<string> decryptRecords(const list<string>& texts, const string& key)
 {
-	return xcryptRecords(texts, key, decrypt);
+	return xcryptRecords(texts, key, decryptText);
 }
 
 string generateKeyBase()

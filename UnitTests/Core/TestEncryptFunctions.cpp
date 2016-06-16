@@ -15,8 +15,8 @@ using std::string;
 static void encryptAndDecrypt(const string& text, const string& key,
 		string& encrypted, string& decrypted)
 {
-	encrypted = encrypt(text, key);
-	decrypted = decrypt(encrypted, key);
+	encrypted = encryptText(text, key);
+	decrypted = decryptText(encrypted, key);
 }
 
 DECLARE(EncryptFunctions)

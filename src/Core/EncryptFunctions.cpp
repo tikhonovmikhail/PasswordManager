@@ -13,12 +13,12 @@ using std::string;
 
 string xorOperation(const string& text, string key);
 
-string encrypt(const string& text, const string& key)
+string encryptText(const string& text, const string& key)
 {
 	return xorOperation(text, key);
 }
 
-string decrypt(const string& text, const string& key)
+string decryptText(const string& text, const string& key)
 {
 	return xorOperation(text, key);
 }

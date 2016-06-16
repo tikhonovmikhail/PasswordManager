@@ -10,8 +10,8 @@
 
 #include <string>
 
-std::string encrypt(const std::string& text, const std::string& key);
-std::string decrypt(const std::string& text, const std::string& key);
+std::string encryptText(const std::string& text, const std::string& key);
+std::string decryptText(const std::string& text, const std::string& key);
 std::string generateKey(const int keyLengthBytes);
 std::string getSubkey(const std::string& key, const int subkeyStartPos, const int subkeyLength);
 
