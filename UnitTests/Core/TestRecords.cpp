@@ -14,7 +14,8 @@
 using std::string;
 using std::list;
 
-#ifdef RUN_UNIT_TESTS
+
+#ifdef RUN_UNIT_TESTS1
 
 DECLARE(Records)
 string title1;

@@ -10,6 +10,14 @@
 using std::string;
 using std::list;
 
+Records::~Records()
+{
+	std::for_each(records.begin(), records.end(), [this](const Record* r)
+			{
+				records.remove(r);
+			});
+}
+
 bool Records::add(const Record* record)
 {
 	if (!record || find(record->getTitle()))
@@ -52,6 +60,8 @@ bool Records::remove(const string& title)
 	if (r)
 	{
 		records.remove(r);
+		delete r;
+		r = nullptr;
 		return true;
 	}
 	else

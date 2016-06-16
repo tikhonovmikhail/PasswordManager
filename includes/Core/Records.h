@@ -14,6 +14,7 @@
 
 class Records {
 public:
+	~Records();
 	bool add(const Record* record);
 	const Record* find(const std::string& title) const;
 	bool remove(const std::string& title);
