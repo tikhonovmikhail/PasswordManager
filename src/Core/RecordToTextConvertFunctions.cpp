@@ -72,19 +72,16 @@ Record* textToRecord(const string& text)
 	auto fieldNames = record->getFieldNames();
 	auto nFields = fieldNames.size();
 	auto nLinesRead = 0;
-	for (const auto& name: fieldNames)
-	{
-		string value;
-		if ( std::getline(ss, value) )
-		{
-			record->setFieldValue(name, value);
-			++nLinesRead;
-		}
-		else
-		{
-			break;
-		}
-	}
+
+	std::for_each(fieldNames.begin(), fieldNames.end(), [&record, &nLinesRead, &ss](const string& name)
+			{
+				string value;
+				if ( std::getline(ss, value) )
+				{
+					record->setFieldValue(name, value);
+					++nLinesRead;
+				}
+			});
 
 	// Has enough fields?
 	if (nLinesRead == nFields)
@@ -119,12 +116,13 @@ string wrapTextWithFieldNames(const string& text, const Record::Type recordType)
 	{
 		return "";
 	}
-	for(const auto& name: fieldNames)
-	{
-		string value;
-		std::getline(ss, value);
-		result += name + ":" + value + "\n";
-	}
+
+	std::for_each(fieldNames.begin(), fieldNames.end(), [&result, &ss](const string& name)
+			{
+				string value;
+				std::getline(ss, value);
+				result += name + ":" + value + "\n";
+			});
 
 	return result;
 }

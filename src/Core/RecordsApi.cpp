@@ -283,22 +283,20 @@ bool getRecordType(const string& title, Recordtype& type)
 
 void getRecordsTitles(list<string>& titles, const Recordtype type)
 {
+	list<const Record*> rlist;
 	if (type == Recordtype::UNKNOWN)
 	{
-		auto rlist = records.getAll();
-		for (const auto& r: rlist)
-		{
-			titles.push_front(r->getTitle());
-		}
+		rlist = records.getAll();
 	}
 	else
 	{
-		auto rlist = records.getByType( Record::Type(type) );
-		for (const auto& r: rlist)
-		{
-			titles.push_front(r->getTitle());
-		}
+		rlist = records.getByType( Record::Type(type) );
 	}
+
+	std::for_each(rlist.begin(), rlist.end(), [&titles](const Record* r)
+					{
+						titles.push_front(r->getTitle());
+					});
 }
 
 bool importRecord(const string& text, string& title)
@@ -326,14 +324,14 @@ bool exportRecord(const string& title, string& text)
 
 bool importRecords(const list<string>& texts)
 {
-	for (const auto& text: texts)
-	{
-		string title;
-		if ( !importRecord(text, title) )
-		{
-			return false;
-		}
-	}
+	std::for_each(texts.begin(), texts.end(), [](const string& text)
+			{
+				string title;
+				if ( !importRecord(text, title) )
+				{
+					return false;
+				}
+			});
 	return true;
 }
 
@@ -341,18 +339,19 @@ bool exportRecords(list<string>& texts)
 {
 	list<string> titles;
 	getRecordsTitles(titles, Recordtype::UNKNOWN);
-	for (const auto& title: titles)
-	{
-		string text;
-		if ( exportRecord(title, text) )
-		{
-			texts.push_front(text);
-		}
-		else
-		{
-			return false;
-		}
-	}
+
+	std::for_each(titles.begin(), titles.end(), [&texts](const string& title)
+			{
+				string text;
+				if ( exportRecord(title, text) )
+				{
+					texts.push_front(text);
+				}
+				else
+				{
+					return false;
+				}
+			});
 	return true;
 }
 

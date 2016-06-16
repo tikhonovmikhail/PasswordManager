@@ -112,10 +112,10 @@ bool Record::isValidType(const Type type) const
 
 void Record::initFields(const vector<string>& names)
 {
-	for (const auto& name: names)
-	{
-		fields.insert( std::make_pair(name,emptyFieldValue) );
-	}
+	std::for_each(names.begin(), names.end(), [this](const string& name)
+			{
+				fields.insert( std::make_pair(name, emptyFieldValue) );
+			});
 }
 
 bool Record::isValidFieldName(const string& name) const
@@ -148,10 +148,10 @@ bool Record::getFieldValue(const string& name, string& value) const
 set<string> Record::getFieldNames() const
 {
 	set<string> names;
-	for (const auto& field: fields)
-	{
-		names.insert(field.first);
-	}
+	std::for_each(fields.begin(), fields.end(), [&names](const std::pair<string,string>& field)
+			{
+				names.insert(field.first);
+			});
 	return names;
 }
 
