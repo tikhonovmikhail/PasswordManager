@@ -81,9 +81,9 @@ bool getRecordType(const std::string& title, Recordtype& type);
 
 void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Recordtype::UNKNOWN);
 
-bool importRecord(const std::string& text, std::string& title);
+bool importRecords(const std::list<std::string>& texts);
 
-bool exportRecord(const std::string& title, std::string& text);
+bool exportRecords(std::list<std::string>& texts);
 
 std::string encryptRecord(const std::string& text, const std::string& key);
 

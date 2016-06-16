@@ -316,11 +316,42 @@ bool exportRecord(const string& title, string& text)
 	auto record = records.find(title);
 	if (record)
 	{
-		text = recordToText(record);
-		text = wrapTextWithFieldNames(text, record->getType());
+		text = wrapTextWithFieldNames( recordToText(record), record->getType());
 	}
 
 	return !text.empty();
+}
+
+bool importRecords(const list<string>& texts)
+{
+	for (const auto& text: texts)
+	{
+		string title;
+		if ( !importRecord(text, title) )
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+bool exportRecords(list<string>& texts)
+{
+	list<string> titles;
+	getRecordsTitles(titles, Recordtype::UNKNOWN);
+	for (const auto& title: titles)
+	{
+		string text;
+		if ( exportRecord(title, text) )
+		{
+			texts.push_front(text);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 string encryptRecord(const string& text, const string& key)
