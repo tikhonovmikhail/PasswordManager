@@ -85,9 +85,9 @@ bool importRecords(const std::list<std::string>& texts);
 
 bool exportRecords(std::list<std::string>& texts);
 
-std::string encryptRecord(const std::string& text, const std::string& key);
+std::list<std::string> encryptRecords(const std::list<std::string>& texts, const std::string& key);
 
-std::string decryptRecord(const std::string& text, const std::string& key);
+std::list<std::string> decryptRecords(const std::list<std::string>& texts, const std::string& key);
 
 std::string generateKeyBase();
 

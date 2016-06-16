@@ -6,6 +6,8 @@
  */
 
 #include <stdexcept>
+#include <functional>
+#include <algorithm>
 
 #include <Core/Record.h>
 #include <Core/Records.h>
@@ -354,14 +356,25 @@ bool exportRecords(list<string>& texts)
 	return true;
 }
 
-string encryptRecord(const string& text, const string& key)
+list<string> xcryptRecords(const list<string>& texts, const string& key,
+		const std::function<string(const string&, const string&)>& xcryptFunc)
 {
-	return encrypt(text, key);
+	list<string> result;
+	std::for_each(texts.begin(), texts.end(), [&key, &xcryptFunc, &result](const string& text)
+			{
+				result.push_front( xcryptFunc(text, key) );
+			});
+	return result;
 }
 
-string decryptRecord(const string& text, const string& key)
+list<string> encryptRecords(const list<string>& texts, const string& key)
 {
-	return decrypt(text, key);
+	return xcryptRecords(texts, key, encrypt);
+}
+
+list<string> decryptRecords(const list<string>& texts, const string& key)
+{
+	return xcryptRecords(texts, key, decrypt);
 }
 
 string generateKeyBase()
