@@ -7,53 +7,52 @@
 
 #include <string>
 #include <memory>
-
+#include <algorithm>
 #include <UnitTest.h>
 #include <Core/Records.h>
 
 using std::string;
 using std::list;
 
+#ifdef RUN_UNIT_TESTS
 
-#ifdef RUN_UNIT_TESTS1
+bool recordsSortCondition(const Record* r1, const Record* r2)
+{
+	return r1->getTitle() > r2->getTitle();
+}
 
 DECLARE(Records)
-string title1;
-string title2;
-string title3;
-Record* record1;
-Record* record2;
-Record* record3;
-list<const Record*> expectedRecordsList;
+#define CREATE_RECORDS \
+	Records records; \
+	\
+	auto title1 = "my title 1"; \
+	auto title2 = "my title 2"; \
+	auto title3 = "my title 3"; \
+	\
+	auto record1 = new Record(title1, Record::SITE); \
+	auto record2 = new Record(title2, Record::SITE); \
+	auto record3 = new Record(title3, Record::SITE); \
+	list<const Record*> expectedRecordsList; \
+    expectedRecordsList.push_back(record1); \
+	expectedRecordsList.push_back(record2); \
+	expectedRecordsList.sort(recordsSortCondition);
+
+/* Yes, I understand memory leak of record1, record2, record3.
+ * The problem is that ~Records() deletes some of them,
+ * and for each test I have to trace which of records will be
+ * deleted in ~Records(), and which of records I must delete manually.
+ * Its too exhausting. Its just a unit test code!
+*/
 END_DECLARE
 
-SETUP(Records)
-{
-	title1 = "my title 1";
-	title2 = "my title 2";
-	title3 = "my title 3";
-	record1 = new Record(title1, Record::SITE);
-	record2 = new Record(title2, Record::SITE);
-	record3 = new Record(title3, Record::SITE);
-	expectedRecordsList.push_back(record1);
-	expectedRecordsList.push_back(record2);
-	expectedRecordsList.sort([](const Record* r1, const Record* r2)
-			{
-				return r1->getTitle() > r2->getTitle();
-			});
-}
+SETUP(Records) { }
 
-TEARDOWN(Records)
-{
-	delete record1;
-	delete record2;
-	delete record3;
-}
+TEARDOWN(Records) {}
 
 TESTF(Records, ShouldAddRecordIfTitleIsUnique)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	ASSERT_TRUE(records.add(record1));
 	ASSERT_TRUE(records.add(record2));
 
@@ -69,14 +68,14 @@ TESTF(Records, ShouldAddRecordIfTitleIsUnique)
 
 TESTF(Records, ShouldNotAddNullRecord)
 {
-	Records records;
+	CREATE_RECORDS
 	ASSERT_TRUE(!records.add(NULL));
 	ASSERT_EQUALS(list<const Record*>(), records.getAll());
 }
 
 TESTF(Records, ShouldReturnRecordIfWasFoundByTitle)
 {
-	Records records;
+	CREATE_RECORDS
 	records.add(record1);
 	records.add(record2);
 
@@ -86,7 +85,7 @@ TESTF(Records, ShouldReturnRecordIfWasFoundByTitle)
 
 TESTF(Records, ShouldReturnNullIfRecordWasNotFoundByTitle)
 {
-	Records records;
+	CREATE_RECORDS
 	records.add(record1);
 	records.add(record2);
 
@@ -95,8 +94,8 @@ TESTF(Records, ShouldReturnNullIfRecordWasNotFoundByTitle)
 
 TESTF(Records, ShouldRemoveRecordIfWasFoundByTitle)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 	records.add(record3);
@@ -110,8 +109,8 @@ TESTF(Records, ShouldRemoveRecordIfWasFoundByTitle)
 
 TESTF(Records, ShouldNotRemoveRecordIfWasNotFoundByTitle)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
@@ -124,8 +123,8 @@ TESTF(Records, ShouldNotRemoveRecordIfWasNotFoundByTitle)
 
 TESTF(Records, ShouldNotReplaceUnexistingRecord)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
@@ -138,8 +137,8 @@ TESTF(Records, ShouldNotReplaceUnexistingRecord)
 
 TESTF(Records, ShouldNotReplaceWithNullRecord)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
@@ -152,8 +151,8 @@ TESTF(Records, ShouldNotReplaceWithNullRecord)
 
 TESTF(Records, ShouldNotReplaceWithRecordWithDuplicateTitle)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
@@ -167,56 +166,54 @@ TESTF(Records, ShouldNotReplaceWithRecordWithDuplicateTitle)
 
 TESTF(Records, ShouldReplaceWithRecordWithUnchangedTitle)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
 	// Try to replace with unchanged title
-	std::unique_ptr<Record> r (new Record(title1, Record::SITE));
-	ASSERT_TRUE( records.replace(title1, r.get()) );
+	auto unchanged = new Record(title1, Record::SITE);
+	ASSERT_TRUE( records.replace(title1, unchanged) );
 
 	//Check that record1 was replaced with r
 	list<const Record*> expected;
 	expected.push_back(record2);
-	expected.push_back(r.get());
+	expected.push_back(unchanged);
+	expected.sort(recordsSortCondition);
 
 	ASSERT_EQUALS(expected, records.getAll());
 }
 
 TESTF(Records, ShouldReplaceWithRecordWithNewTitle)
 {
+	CREATE_RECORDS
 	// Add some records
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
 	// Try to replace with new title
-	std::unique_ptr<Record> r (new Record(title3, Record::SITE));
-	ASSERT_TRUE( records.replace(title1, r.get()) );
+	auto newtitled = new Record(title3, Record::SITE);
+	ASSERT_TRUE( records.replace(title1, newtitled) );
 
 	//Check that record1 was replaced with r
 	list<const Record*> expected;
 	expected.push_back(record2);
-	expected.push_back(r.get());
-	expected.sort([](const Record* r1, const Record* r2)
-			{
-				return r1->getTitle() > r2->getTitle();
-			});
+	expected.push_back(newtitled);
+	expected.sort(recordsSortCondition);
 
 	ASSERT_EQUALS(expected, records.getAll());
 }
 
 TESTF(Records, ShouldGetAllRecordsByType)
 {
+	CREATE_RECORDS
 	// Add some records of the same type
-	Records records;
 	records.add(record1);
 	records.add(record2);
 
 	// Add record of another type
-	Record r(title3, Record::BANKCARD);
-	records.add(&r);
+	auto r = new Record(title3, Record::BANKCARD);
+	records.add(r);
 
 	// Check if returned only records of given type
 	ASSERT_EQUALS(expectedRecordsList, records.getByType(Record::SITE));
@@ -224,8 +221,8 @@ TESTF(Records, ShouldGetAllRecordsByType)
 
 TESTF(Records, ShouldSortRecords)
 {
+	CREATE_RECORDS
 	// Add some records of the same type
-	Records records;
 	records.add(record1);
 	records.add(record3);
 	records.add(record2);

@@ -14,7 +14,7 @@ Records::~Records()
 {
 	std::for_each(records.begin(), records.end(), [this](const Record* r)
 			{
-				records.remove(r);
+				delete r;
 			});
 }
 
@@ -61,7 +61,6 @@ bool Records::remove(const string& title)
 	{
 		records.remove(r);
 		delete r;
-		r = nullptr;
 		return true;
 	}
 	else
