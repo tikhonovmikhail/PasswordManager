@@ -375,15 +375,3 @@ list<string> decryptRecords(const list<string>& texts, const string& key)
 {
 	return xcryptRecords(texts, key, decryptText);
 }
-
-string generateKeyBase()
-{
-	return generateKey(10000000 + getSubkeyLength());
-}
-
-string getKeyFromBase(const string& baseKey, const int startPos)
-{
-	return getSubkey(baseKey, startPos, getSubkeyLength());
-}
-
-}

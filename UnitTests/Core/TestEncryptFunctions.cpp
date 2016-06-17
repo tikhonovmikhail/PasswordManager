@@ -66,29 +66,4 @@ TESTF(EncryptFunctions, ShouldEncryptAndDecryptTextLengthEqualToKeyLength)
 	ASSERT_EQUALS(decrypted, textToEncrypt);
 }
 
-TESTF(EncryptFunctions, ShouldGenerateKeyOfGivenLength)
-{
-	auto keyLength = 1000;
-	auto key = generateKey(keyLength);
-	ASSERT_EQUALS(keyLength, key.length());
-}
-
-TESTF(EncryptFunctions, ShouldExtractSubkeyFromKeyWhenValidSubkeyLength)
-{
-	auto subkeyStartPos = 1;
-	auto subkeyLength = keyToEncryptLength - subkeyStartPos - 1;
-
-	auto subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
-	ASSERT_EQUALS("nviheqndsbvjsdfiwefcbsdjvsofiuhaecfw[aeinvwvbvoib", subkey);
-}
-
-TESTF(EncryptFunctions, ShouldExtractSubkeyFromKeyWhenTooLongSubkeyLength)
-{
-	auto subkeyStartPos = 1;
-	auto subkeyLength = keyToEncryptLength + 100;
-
-	auto subkey = getSubkey(keyToEncrypt, subkeyStartPos, subkeyLength);
-	ASSERT_EQUALS("nviheqndsbvjsdfiwefcbsdjvsofiuhaecfw[aeinvwvbvoibv", subkey);
-}
-
 #endif // RUN_UNIT_TESTS

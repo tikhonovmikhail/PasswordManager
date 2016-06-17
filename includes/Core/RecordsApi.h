@@ -88,11 +88,6 @@ bool exportRecords(std::list<std::string>& texts);
 std::list<std::string> encryptRecords(const std::list<std::string>& texts, const std::string& key);
 
 std::list<std::string> decryptRecords(const std::list<std::string>& texts, const std::string& key);
-
-std::string generateKeyBase();
-
-std::string getKeyFromBase(const std::string& baseKey, const int startPos);
-
 }
 
 #endif /* RECORDSAPI_H_ */

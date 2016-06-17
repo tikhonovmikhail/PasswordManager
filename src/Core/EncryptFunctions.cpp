@@ -40,21 +40,3 @@ string xorOperation(const string& text, string key)
 
 	return result;
 }
-
-string generateKey(const int keyLengthBytes)
-{
-	string key(keyLengthBytes, '\0');
-
-	srand(time(NULL));
-	for (auto i = 0; i < keyLengthBytes; ++i)
-	{
-		key[i] = rand() % 256;
-	}
-
-	return key;
-}
-
-string getSubkey(const string& key, const int subkeyStartPos, const int subkeyLength)
-{
-	return key.substr(subkeyStartPos, subkeyLength);
-}
