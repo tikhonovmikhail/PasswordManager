@@ -14,13 +14,10 @@
 class Config {
 public:
 	static const std::string defaultAppDataDir;
-	static const std::string defaultConfFilename;
 
 	Config();
 	bool importFromText(const std::string& text);
 	std::string exportToText();
-	bool setConfFilename(const std::string& filename);
-	std::string getConfFilename();
 	bool setAppDataDir(const std::string& path);
 	std::string getAppDataDir();
 	const std::unordered_set<std::string>& getFavouriteTitles();
@@ -28,7 +25,6 @@ public:
 	bool removeFavouriteTitle(const std::string& title);
 private:
 	std::string appDataDir;
-	std::string confFilename;
 	std::unordered_set<std::string> favouriteTitles;
 };
 

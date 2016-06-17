@@ -13,32 +13,16 @@ using std::string;
 using std::stringstream;
 using std::unordered_set;
 
-const string Config::defaultConfFilename = "pmconf";
 const string Config::defaultAppDataDir = "./";
 
 Config::Config()
 {
-	confFilename = defaultConfFilename;
 	appDataDir = defaultAppDataDir;
-}
-
-string Config::getConfFilename()
-{
-	return confFilename;
 }
 
 string Config::getAppDataDir()
 {
 	return appDataDir;
-}
-
-bool Config::setConfFilename(const string& filename)
-{
-	if ( !filename.empty() )
-	{
-		confFilename = filename;
-	}
-	return !filename.empty();
 }
 
 bool Config::setAppDataDir(const string& path)
@@ -75,7 +59,6 @@ string Config::exportToText()
 {
 	string text;
 
-	text += confFilename + "\n";
 	text += appDataDir + "\n";
 	std::for_each(favouriteTitles.begin(), favouriteTitles.end(),[&text](const string& title)
 			{
@@ -91,11 +74,9 @@ bool Config::importFromText(const string& text)
 	auto backup = exportToText();
 	stringstream ss(text);
 
-	string confFile;
-	std::getline(ss, confFile);
 	string dataDir;
 	std::getline(ss, dataDir);
-	if ( !setConfFilename(confFile) || !setAppDataDir(dataDir) )
+	if ( !setAppDataDir(dataDir) )
 	{
 		importFromText(backup);
 		return false;

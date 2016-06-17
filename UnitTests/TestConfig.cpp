@@ -14,7 +14,6 @@ using std::string;
 #ifdef RUN_UNIT_TESTS
 
 DECLARE(Config)
-string confFilename;
 string appDataDir;
 string favouriteTitle1;
 string favouriteTitle2;
@@ -23,12 +22,10 @@ END_DECLARE
 
 SETUP(Config)
 {
-	confFilename = "myconfig";
 	appDataDir = "mydir";
 	favouriteTitle1 = "title1";
 	favouriteTitle2 = "title2";
 	exportedText =
-			confFilename + "\n" +
 			appDataDir + "\n" +
 			favouriteTitle1 + "\n" +
 			favouriteTitle2;
@@ -36,25 +33,10 @@ SETUP(Config)
 
 TEARDOWN(Config) {}
 
-TESTF(Config, ShouldHaveDefaultConfigFilename)
-{
-	Config config;
-	ASSERT_EQUALS(Config::defaultConfFilename, config.getConfFilename());
-}
-
 TESTF(Config, ShouldHaveDefaultAppDataDir)
 {
 	Config config;
 	ASSERT_EQUALS(Config::defaultAppDataDir, config.getAppDataDir());
-}
-
-TESTF(Config, ShouldSetConfigFilename)
-{
-	Config config;
-	ASSERT_TRUE( config.setConfFilename(confFilename) );
-	ASSERT_TRUE( !config.setConfFilename("") );
-
-	ASSERT_EQUALS(confFilename, config.getConfFilename());
 }
 
 TESTF(Config, ShouldSetConfigAppDataDir)
@@ -106,7 +88,6 @@ TESTF(Config, ShouldNotRemoveUnexistingFavouriteTitle)
 TESTF(Config, ShouldExportToText)
 {
 	Config config;
-	config.setConfFilename(confFilename);
 	config.setAppDataDir(appDataDir);
 	config.addFavouriteTitle(favouriteTitle2);
 	config.addFavouriteTitle(favouriteTitle1);
@@ -118,7 +99,6 @@ TESTF(Config, ShouldImportFromValidText)
 {
 	Config config;
 	ASSERT_TRUE( config.importFromText(exportedText) );
-	ASSERT_EQUALS( confFilename, config.getConfFilename() );
 	ASSERT_EQUALS( appDataDir, config.getAppDataDir() );
 	ASSERT_EQUALS(2, config.getFavouriteTitles().size() );
 }
@@ -129,7 +109,7 @@ TESTF(Config, ShouldNotImportFromInvalidText)
 	// Put good config
 	config.importFromText(exportedText);
 	// Put bad config
-	string invalidText = "foo";
+	string invalidText = "";
 	ASSERT_TRUE( !config.importFromText(invalidText) );
 	// Make sure config was not corrupted
 	ASSERT_EQUALS(exportedText, config.exportToText() );
