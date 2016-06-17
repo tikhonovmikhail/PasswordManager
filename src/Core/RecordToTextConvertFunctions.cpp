@@ -19,6 +19,7 @@ using std::invalid_argument;
 using std::out_of_range;
 
 static bool stringToInt(const string& str, int& result);
+static void removeLastNewLineFromString(string& str);
 
 string recordToText(const Record* record)
 {
@@ -36,7 +37,7 @@ string recordToText(const Record* record)
 					record->getFieldValue(field, value);
 					text += value + "\n";
 				});
-		text.pop_back(); // remove \n
+		removeLastNewLineFromString(text);
 	}
 
 	return text;
@@ -125,7 +126,7 @@ string wrapTextWithFieldNames(const string& text, const Record::Type recordType)
 				result += name + ":" + value + "\n";
 			});
 
-	result.pop_back(); // remove \n
+	removeLastNewLineFromString(result);
 	return result;
 }
 
@@ -148,7 +149,7 @@ string unwrapTextFromFieldNames(const string& text)
 		}
 	}
 
-	result.pop_back(); // remove \n
+	removeLastNewLineFromString(result);
 	return result;
 }
 
@@ -168,6 +169,11 @@ static bool stringToInt(const string& str, int& result)
     {
         return false;
     }
+}
+
+void removeLastNewLineFromString(string& str)
+{
+	str.pop_back();
 }
 
 
