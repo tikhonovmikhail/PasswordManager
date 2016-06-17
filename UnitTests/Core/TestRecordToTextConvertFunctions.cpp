@@ -34,7 +34,7 @@ SETUP(RecordToTextWrapFieldsFunctions)
 			comment + "\n" +
 			link + "\n" +
 			login + "\n" +
-			password + "\n";
+			password;
 
 	wrappedText =
 			"title:" + title + "\n" +
@@ -42,7 +42,7 @@ SETUP(RecordToTextWrapFieldsFunctions)
 			Record::site_comment + ":" + comment + "\n" +
 			Record::site_link + ":" + link + "\n" +
 			Record::site_login + ":" + login + "\n" +
-			Record::site_password + ":" + password + "\n";
+			Record::site_password + ":" + password;
 }
 
 TEARDOWN(RecordToTextWrapFieldsFunctions) {}
@@ -81,7 +81,7 @@ SETUP(RecordToTextConvertFunctions)
 		   comment + "\n" +
 		   link + "\n" +
 		   login + "\n" +
-		   password + "\n";
+		   password;
 }
 
 TEARDOWN(RecordToTextConvertFunctions) {}
@@ -135,7 +135,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyTitle)
 			   comment + "\n" +
 			   link + "\n" +
 			   login + "\n" +
-			   password + "\n";
+			   password;
 	ASSERT_EQUALS(nullptr, textToRecord(textWithoutTitle));
 }
 
@@ -147,7 +147,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfEmptyType)
 				comment + "\n" +
 				link + "\n" +
 				login + "\n" +
-				password + "\n";
+				password;
 	ASSERT_EQUALS(nullptr, textToRecord(textWithEmptyType));
 }
 
@@ -159,7 +159,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfBadType)
 				comment + "\n" +
 				link + "\n" +
 				login + "\n" +
-				password + "\n";
+				password;
 	ASSERT_EQUALS(nullptr, textToRecord(textWithBadType));
 }
 
@@ -171,7 +171,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfTypeHasBadFormat)
 				comment + "\n" +
 				link + "\n" +
 				login + "\n" +
-				password + "\n";
+				password;
 	ASSERT_EQUALS(nullptr, textToRecord(textWithBadTypeFormat));
 }
 
@@ -182,7 +182,7 @@ TESTF(RecordToTextConvertFunctions, ShouldReturnNullIfBadFields)
 			   // in sorted order
 			   comment + "\n" +
 			   link + "\n" +
-			   password + "\n";
+			   password;
 	ASSERT_EQUALS(nullptr, textToRecord(textWithOneFieldLost));
 }
 

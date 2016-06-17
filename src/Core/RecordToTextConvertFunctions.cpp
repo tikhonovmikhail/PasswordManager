@@ -36,6 +36,7 @@ string recordToText(const Record* record)
 					record->getFieldValue(field, value);
 					text += value + "\n";
 				});
+		text.pop_back(); // remove \n
 	}
 
 	return text;
@@ -124,6 +125,7 @@ string wrapTextWithFieldNames(const string& text, const Record::Type recordType)
 				result += name + ":" + value + "\n";
 			});
 
+	result.pop_back(); // remove \n
 	return result;
 }
 
@@ -146,6 +148,7 @@ string unwrapTextFromFieldNames(const string& text)
 		}
 	}
 
+	result.pop_back(); // remove \n
 	return result;
 }
 
