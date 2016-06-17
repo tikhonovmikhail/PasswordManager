@@ -7,20 +7,24 @@
 
 #include <algorithm>
 #include <sstream>
+#include <fstream>
 #include <Config.h>
 
 using std::string;
 using std::stringstream;
 using std::unordered_set;
+using std::ifstream;
+using std::ofstream;
 
 const string Config::defaultAppDataDir = "./";
+const string Config::filename = "pmconf";
 
 Config::Config()
 {
 	appDataDir = defaultAppDataDir;
 }
 
-string Config::getAppDataDir()
+string Config::getAppDataDir() const
 {
 	return appDataDir;
 }
@@ -50,12 +54,12 @@ bool Config::removeFavouriteTitle(const string& title)
 	return favouriteTitles.erase(title) == 1;
 }
 
-const unordered_set<string>& Config::getFavouriteTitles()
+const unordered_set<string>& Config::getFavouriteTitles() const
 {
 	return favouriteTitles;
 }
 
-string Config::exportToText()
+string Config::exportToText() const
 {
 	string text;
 
@@ -88,4 +92,31 @@ bool Config::importFromText(const string& text)
 	return true;
 }
 
+bool writeConfig(const Config& config)
+{
+	ofstream ofs(Config::filename);
+	if (!ofs.is_open())
+	{
+		return false;
+	}
+
+	ofs << config.exportToText();
+
+	ofs.close();
+	return true;
+}
+
+bool readConfig(Config& config)
+{
+	ifstream ifs(Config::filename);
+	if ( !ifs.is_open() )
+	{
+		return false;
+	}
+
+	string content;
+	ifs >> content;
+	ifs.close();
+	return config.importFromText(content);
+}
 

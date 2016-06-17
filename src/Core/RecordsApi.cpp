@@ -375,3 +375,4 @@ list<string> decryptRecords(const list<string>& texts, const string& key)
 {
 	return xcryptRecords(texts, key, decryptText);
 }
+}

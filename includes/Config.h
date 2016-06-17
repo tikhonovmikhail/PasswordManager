@@ -14,18 +14,22 @@
 class Config {
 public:
 	static const std::string defaultAppDataDir;
+	static const std::string filename;
 
 	Config();
 	bool importFromText(const std::string& text);
-	std::string exportToText();
+	std::string exportToText() const;
 	bool setAppDataDir(const std::string& path);
-	std::string getAppDataDir();
-	const std::unordered_set<std::string>& getFavouriteTitles();
+	std::string getAppDataDir() const;
+	const std::unordered_set<std::string>& getFavouriteTitles() const;
 	bool addFavouriteTitle(const std::string& title);
 	bool removeFavouriteTitle(const std::string& title);
 private:
 	std::string appDataDir;
 	std::unordered_set<std::string> favouriteTitles;
 };
+
+bool writeConfig(const Config& config);
+bool readConfig(Config& config);
 
 #endif /* CONFIG_H_ */
