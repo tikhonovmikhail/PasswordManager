@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <functional>
 #include <algorithm>
+#include <fstream>
+#include <streambuf>
 
 #include <Core/Record.h>
 #include <Core/Records.h>
@@ -18,15 +20,12 @@
 using std::string;
 using std::list;
 using std::invalid_argument;
+using std::ifstream;
+using std::ofstream;
 
-namespace RecordsApi {
+namespace LibPm {
 
 Records records;
-
-int getSubkeyLength()
-{
-	return 1763;
-}
 
 Record* createSiteRecord(const string& title,
 		const string& link,
@@ -374,5 +373,52 @@ list<string> encryptRecords(const list<string>& texts, const string& key)
 list<string> decryptRecords(const list<string>& texts, const string& key)
 {
 	return xcryptRecords(texts, key, decryptText);
+}
+
+
+bool readRecords(const string& dir, const string& key)
+{
+	list<string> texts;
+	for (auto index = 0; ; ++index)
+	{
+		ifstream ifs(dir + std::to_string(index));
+		if ( !ifs.is_open() )
+		{
+			break;
+		}
+
+		string text((std::istreambuf_iterator<char>(ifs)),
+				     std::istreambuf_iterator<char>());
+		texts.push_back(text);
+		ifs.close();
+	}
+
+	texts = decryptRecords(texts, key);
+	return importRecords(texts);
+}
+
+bool writeRecords(const string& dir, const string& key)
+{
+	list<string> texts;
+	if ( !exportRecords(texts) )
+	{
+		return false;
+	}
+
+	texts = encryptRecords(texts, key);
+
+	int index = 0;
+	std::for_each(texts.begin(), texts.end(), [dir, &index](const string& text)
+			{
+				ofstream ofs(dir + std::to_string(index));
+				if (!ofs.is_open())
+				{
+					return false;
+				}
+				ofs << text << std::endl;
+				ofs.close();
+				++index;
+			});
+	return true;
 }
 }

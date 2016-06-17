@@ -29,7 +29,4 @@ private:
 	std::unordered_set<std::string> favouriteTitles;
 };
 
-bool writeConfig(const Config& config);
-bool readConfig(Config& config);
-
 #endif /* CONFIG_H_ */

@@ -92,31 +92,3 @@ bool Config::importFromText(const string& text)
 	return true;
 }
 
-bool writeConfig(const Config& config)
-{
-	ofstream ofs(Config::filename);
-	if (!ofs.is_open())
-	{
-		return false;
-	}
-
-	ofs << config.exportToText();
-
-	ofs.close();
-	return true;
-}
-
-bool readConfig(Config& config)
-{
-	ifstream ifs(Config::filename);
-	if ( !ifs.is_open() )
-	{
-		return false;
-	}
-
-	string content;
-	ifs >> content;
-	ifs.close();
-	return config.importFromText(content);
-}
-

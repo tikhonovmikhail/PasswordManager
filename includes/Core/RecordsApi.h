@@ -11,7 +11,7 @@
 #include <string>
 #include <list>
 
-namespace RecordsApi {
+namespace LibPm {
 
 enum class Recordtype {SITE, BANKCARD, APPLICATION, UNKNOWN};
 
@@ -81,13 +81,9 @@ bool getRecordType(const std::string& title, Recordtype& type);
 
 void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Recordtype::UNKNOWN);
 
-bool importRecords(const std::list<std::string>& texts);
+bool readRecords(const std::string& dir, const std::string& key);
 
-bool exportRecords(std::list<std::string>& texts);
-
-std::list<std::string> encryptRecords(const std::list<std::string>& texts, const std::string& key);
-
-std::list<std::string> decryptRecords(const std::list<std::string>& texts, const std::string& key);
+bool writeRecords(const std::string& dir, const std::string& key);
 }
 
 #endif /* RECORDSAPI_H_ */
