@@ -7,7 +7,7 @@
 
 #include <string>
 #include <UnitTest.h>
-#include <Config.h>
+#include <Core/Config.h>
 
 using std::string;
 

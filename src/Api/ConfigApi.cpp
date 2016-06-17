@@ -6,8 +6,9 @@
  */
 
 #include <fstream>
-#include <ConfigApi.h>
-#include <Config.h>
+#include <streambuf>
+#include <Api/ConfigApi.h>
+#include <Core/Config.h>
 
 using std::string;
 using std::stringstream;
@@ -40,8 +41,8 @@ bool readConfig()
 		return false;
 	}
 
-	string content;
-	ifs >> content;
+	string content((std::istreambuf_iterator<char>(ifs)),
+			        std::istreambuf_iterator<char>());
 	ifs.close();
 	return config.importFromText(content);
 }
