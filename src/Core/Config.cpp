@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
-#include <Config.h>
+#include <Core/Config.h>
 
 using std::string;
 using std::stringstream;
@@ -24,7 +24,7 @@ Config::Config()
 	appDataDir = defaultAppDataDir;
 }
 
-string Config::getAppDataDir() const
+const string& Config::getAppDataDir() const
 {
 	return appDataDir;
 }

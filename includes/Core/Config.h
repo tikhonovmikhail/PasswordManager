@@ -20,7 +20,7 @@ public:
 	bool importFromText(const std::string& text);
 	std::string exportToText() const;
 	bool setAppDataDir(const std::string& path);
-	std::string getAppDataDir() const;
+	const std::string& getAppDataDir() const;
 	const std::unordered_set<std::string>& getFavouriteTitles() const;
 	bool addFavouriteTitle(const std::string& title);
 	bool removeFavouriteTitle(const std::string& title);

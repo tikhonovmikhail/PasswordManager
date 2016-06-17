@@ -16,7 +16,7 @@ namespace LibPm {
 bool writeConfig();
 bool readConfig();
 bool setAppDataDir(const std::string& path);
-std::string getAppDataDir();
+const std::string& getAppDataDir();
 const std::unordered_set<std::string>& getFavouriteTitles();
 bool addFavouriteTitle(const std::string& title);
 bool removeFavouriteTitle(const std::string& title);

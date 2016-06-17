@@ -15,7 +15,7 @@
 #include <Core/Records.h>
 #include <Core/EncryptFunctions.h>
 #include <Core/RecordToTextConvertFunctions.h>
-#include <Core/RecordsApi.h>
+#include <Api/RecordsApi.h>
 
 using std::string;
 using std::list;
