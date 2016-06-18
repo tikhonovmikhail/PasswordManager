@@ -5,6 +5,7 @@
  *      Author: misha123
  */
 
+#include <sys/stat.h>
 #include <stdexcept>
 #include <functional>
 #include <algorithm>
@@ -375,9 +376,19 @@ list<string> decryptRecords(const list<string>& texts, const string& key)
 	return xcryptRecords(texts, key, decryptText);
 }
 
+bool doesDirExist(const string& dir)
+{
+	struct stat sb;
+	return stat(dir.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode);
+}
 
 bool readRecords(const string& dir, const string& key)
 {
+	if ( !doesDirExist(dir) )
+	{
+		return false;
+	}
+
 	list<string> texts;
 	for (auto index = 0; ; ++index)
 	{
@@ -399,6 +410,11 @@ bool readRecords(const string& dir, const string& key)
 
 bool writeRecords(const string& dir, const string& key)
 {
+	if ( !doesDirExist(dir) )
+	{
+		return false;
+	}
+
 	list<string> texts;
 	if ( !exportRecords(texts) )
 	{
@@ -415,7 +431,7 @@ bool writeRecords(const string& dir, const string& key)
 				{
 					return false;
 				}
-				ofs << text << std::endl;
+				ofs << text;
 				ofs.close();
 				++index;
 			});
