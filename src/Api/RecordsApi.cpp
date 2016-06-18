@@ -421,4 +421,10 @@ bool writeRecords(const string& dir, const string& key)
 			});
 	return true;
 }
+
+void clearRecords()
+{
+	records.clear();
+}
+
 }

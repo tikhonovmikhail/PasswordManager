@@ -84,6 +84,8 @@ void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Re
 bool readRecords(const std::string& dir, const std::string& key = "");
 
 bool writeRecords(const std::string& dir, const std::string& key = "");
+
+void clearRecords();
 }
 
 #endif /* RECORDSAPI_H_ */
