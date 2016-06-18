@@ -5,9 +5,8 @@
  *      Author: misha123
  */
 
-#include <cstdlib>
-#include <ctime>
 #include <Core/EncryptFunctions.h>
+#include <Core/md5.h>
 
 using std::string;
 
@@ -25,6 +24,8 @@ string decryptText(const string& text, const string& key)
 
 string xorOperation(const string& text, string key)
 {
+	key = md5(key);
+
 	auto textLength = text.length();
 	string result(textLength, '\0'); // reserve size to prevent memory reallocations
 
