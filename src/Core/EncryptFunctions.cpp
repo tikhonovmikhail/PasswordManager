@@ -24,6 +24,11 @@ string decryptText(const string& text, const string& key)
 
 string xorOperation(const string& text, string key)
 {
+	if (key.empty())
+	{
+		return text;
+	}
+
 	key = md5(key);
 
 	auto textLength = text.length();

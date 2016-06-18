@@ -66,4 +66,14 @@ TESTF(EncryptFunctions, ShouldEncryptAndDecryptTextLengthEqualToKeyLength)
 	ASSERT_EQUALS(decrypted, textToEncrypt);
 }
 
+TESTF(EncryptFunctions, ShouldNotModifyTextIfKeyIsEmpty)
+{
+	string encrypted, decrypted;
+	encryptAndDecrypt(textToEncrypt, "",
+				encrypted, decrypted);
+
+	ASSERT_EQUALS(textToEncrypt, encrypted);
+	ASSERT_EQUALS(textToEncrypt, decrypted);
+}
+
 #endif // RUN_UNIT_TESTS

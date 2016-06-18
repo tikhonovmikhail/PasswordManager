@@ -81,9 +81,9 @@ bool getRecordType(const std::string& title, Recordtype& type);
 
 void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Recordtype::UNKNOWN);
 
-bool readRecords(const std::string& dir, const std::string& key);
+bool readRecords(const std::string& dir, const std::string& key = "");
 
-bool writeRecords(const std::string& dir, const std::string& key);
+bool writeRecords(const std::string& dir, const std::string& key = "");
 }
 
 #endif /* RECORDSAPI_H_ */
