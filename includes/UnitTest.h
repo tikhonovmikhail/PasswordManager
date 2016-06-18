@@ -12,5 +12,6 @@
 #include <easyunit/testharness.h>
 #include <iostream>
 #define RUN_UNIT_TESTS
+#define CAN_USE_REAL_ENVIRONMENT
 
 #endif /* INCLUDES_UNITTEST_H_ */
