@@ -237,4 +237,15 @@ TESTF(Records, ShouldSortRecords)
 	ASSERT_EQUALS(expected, records.getAll());
 }
 
+TESTF(Records, ShouldClearAllRecords)
+{
+	CREATE_RECORDS
+	// Add some records of the same type
+	records.add(record1);
+	records.add(record2);
+
+	records.clear();
+	ASSERT_EQUALS(0, records.getAll().size());
+}
+
 #endif // RUN_UNIT_TESTS

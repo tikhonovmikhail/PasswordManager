@@ -12,10 +12,7 @@ using std::list;
 
 Records::~Records()
 {
-	std::for_each(records.begin(), records.end(), [this](const Record* r)
-			{
-				delete r;
-			});
+	clear();
 }
 
 bool Records::add(const Record* record)
@@ -110,4 +107,13 @@ list<const Record*> Records::getByType(const Record::Type type) const
 			});
 
 	return recordsByType;
+}
+
+void Records::clear()
+{
+	std::for_each(records.begin(), records.end(), [this](const Record* r)
+				{
+					delete r;
+				});
+	records.clear();
 }

@@ -21,6 +21,7 @@ public:
 	bool replace(const std::string& title, const Record* record);
 	const std::list<const Record*>& getAll() const;
 	std::list<const Record*> getByType(const Record::Type type) const;
+	void clear();
 private:
 	std::list<const Record*> records;
 };
