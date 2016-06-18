@@ -384,7 +384,7 @@ bool readRecords(const string& dir, const string& key)
 		ifstream ifs(dir + std::to_string(index));
 		if ( !ifs.is_open() )
 		{
-			break;
+			break; // no more files no process
 		}
 
 		string text((std::istreambuf_iterator<char>(ifs)),
