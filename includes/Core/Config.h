@@ -24,6 +24,7 @@ public:
 	const std::unordered_set<std::string>& getFavouriteTitles() const;
 	bool addFavouriteTitle(const std::string& title);
 	bool removeFavouriteTitle(const std::string& title);
+	void clear();
 private:
 	std::string appDataDir;
 	std::unordered_set<std::string> favouriteTitles;

@@ -92,3 +92,9 @@ bool Config::importFromText(const string& text)
 	return true;
 }
 
+void Config::clear()
+{
+	appDataDir = defaultAppDataDir;
+	favouriteTitles.clear();
+}
+

@@ -20,6 +20,7 @@ const std::string& getAppDataDir();
 const std::unordered_set<std::string>& getFavouriteTitles();
 bool addFavouriteTitle(const std::string& title);
 bool removeFavouriteTitle(const std::string& title);
+void clearConfig();
 
 }
 

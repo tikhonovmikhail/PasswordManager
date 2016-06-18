@@ -72,6 +72,11 @@ bool removeFavouriteTitle(const string& title)
 	return config.removeFavouriteTitle(title);
 }
 
+void clearConfig()
+{
+	config.clear();
+}
+
 }
 
 
