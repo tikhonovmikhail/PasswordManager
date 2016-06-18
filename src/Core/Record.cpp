@@ -120,7 +120,7 @@ void Record::initFields(const vector<string>& names)
 
 bool Record::isValidFieldName(const string& name) const
 {
-	fields.find(name) != fields.end();
+	return fields.find(name) != fields.end();
 }
 
 bool Record::setFieldValue(const string& name, const string& value)
