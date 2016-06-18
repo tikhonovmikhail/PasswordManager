@@ -223,6 +223,8 @@ TESTF(RecordsApi, ShouldNotWriteAndReadRecordsUsingBadDir)
 {
 	ASSERT_TRUE( !writeRecords("foo", "secret") );
 	ASSERT_TRUE( !readRecords("foo", "secret") );
+
+	ON_TEST_END
 }
 
 #endif // CAN_USE_REAL_ENVIRONMENT
