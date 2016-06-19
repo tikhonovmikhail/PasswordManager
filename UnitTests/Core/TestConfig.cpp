@@ -110,8 +110,7 @@ TESTF(Config, ShouldNotImportFromInvalidText)
 	// Put good config
 	config.importFromText(exportedText);
 	// Put bad config
-	string invalidText = "";
-	ASSERT_TRUE( !config.importFromText(invalidText) );
+	ASSERT_TRUE( !config.importFromText("") );
 	// Make sure config was not corrupted
 	ASSERT_EQUALS(exportedText, config.exportToText() );
 }
