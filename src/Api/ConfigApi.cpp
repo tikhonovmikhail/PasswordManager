@@ -16,7 +16,7 @@ using std::unordered_set;
 using std::ifstream;
 using std::ofstream;
 
-namespace LibPm {
+namespace PasswordManager {
 
 Config config;
 

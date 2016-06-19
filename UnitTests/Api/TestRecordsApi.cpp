@@ -11,7 +11,7 @@
 
 #include <Api/RecordsApi.h>
 
-using namespace LibPm;
+using namespace PasswordManager;
 using std::string;
 using std::list;
 

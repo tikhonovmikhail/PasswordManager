@@ -24,7 +24,7 @@ using std::invalid_argument;
 using std::ifstream;
 using std::ofstream;
 
-namespace LibPm {
+namespace PasswordManager {
 
 Records records;
 

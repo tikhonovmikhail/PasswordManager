@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_set>
 
-namespace LibPm {
+namespace PasswordManager {
 
 bool writeConfig();
 bool readConfig();

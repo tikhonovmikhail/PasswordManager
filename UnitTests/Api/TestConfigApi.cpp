@@ -16,7 +16,7 @@
 
 using std::string;
 using std::unordered_set;
-using namespace LibPm;
+using namespace PasswordManager;
 
 /*
  * Almost all API functions are just wrappers under Config functions

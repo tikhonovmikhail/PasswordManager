@@ -11,7 +11,7 @@
 #include <string>
 #include <list>
 
-namespace LibPm {
+namespace PasswordManager {
 
 enum class Recordtype {SITE, BANKCARD, APPLICATION, UNKNOWN};
 
