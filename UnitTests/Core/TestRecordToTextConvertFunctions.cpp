@@ -5,14 +5,16 @@
  *      Author: mt
  */
 
-#include <memory>
 #include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
+#include <memory>
+#include <string>
 #include <Core/Record.h>
 #include <Core/RecordToTextConvertFunctions.h>
 
 using std::string;
-
-#ifdef RUN_UNIT_TESTS
 
 DECLARE(RecordToTextWrapFieldsFunctions)
 string unwrappedText;

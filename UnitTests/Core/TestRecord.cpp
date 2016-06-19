@@ -1,13 +1,18 @@
-#include <iostream>
 #include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+#include <stdexcept>
 #include <Core/Record.h>
 
 using std::string;
 using std::set;
 using std::vector;
 using std::invalid_argument;
-
-#ifdef RUN_UNIT_TESTS
 
 DECLARE(Record)
 string goodTitle;

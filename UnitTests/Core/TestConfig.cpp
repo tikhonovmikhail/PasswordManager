@@ -5,13 +5,14 @@
  *      Author: mt
  */
 
-#include <string>
 #include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
+#include <string>
 #include <Core/Config.h>
 
 using std::string;
-
-#ifdef RUN_UNIT_TESTS
 
 DECLARE(Config)
 string appDataDir;

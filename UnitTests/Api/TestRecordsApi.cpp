@@ -6,13 +6,14 @@
  */
 
 #include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
 #include <Api/RecordsApi.h>
 
 using namespace LibPm;
 using std::string;
 using std::list;
-
-#ifdef RUN_UNIT_TESTS
 
 DECLARE(RecordsApi)
 #define ON_TEST_END clearRecords();

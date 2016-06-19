@@ -5,17 +5,18 @@
  *      Author: misha123
  */
 
+#include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
 #include <string>
 #include <unordered_set>
-#include <UnitTest.h>
 #include <Core/Config.h>
 #include <Api/ConfigApi.h>
 
 using std::string;
 using std::unordered_set;
 using namespace LibPm;
-
-#ifdef RUN_UNIT_TESTS
 
 /*
  * Almost all API functions are just wrappers under Config functions

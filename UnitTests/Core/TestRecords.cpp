@@ -5,16 +5,18 @@
  *      Author: misha123
  */
 
+#include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
 #include <string>
+#include <list>
 #include <memory>
 #include <algorithm>
-#include <UnitTest.h>
 #include <Core/Records.h>
 
 using std::string;
 using std::list;
-
-#ifdef RUN_UNIT_TESTS
 
 bool recordsSortCondition(const Record* r1, const Record* r2)
 {

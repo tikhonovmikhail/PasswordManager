@@ -6,11 +6,13 @@
  */
 
 #include <UnitTest.h>
+
+#ifdef RUN_UNIT_TESTS
+
+#include <string>
 #include <Core/EncryptFunctions.h>
 
 using std::string;
-
-#ifdef RUN_UNIT_TESTS
 
 static void encryptAndDecrypt(const string& text, const string& key,
 		string& encrypted, string& decrypted)
