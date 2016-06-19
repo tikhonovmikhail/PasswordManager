@@ -63,8 +63,7 @@ TESTF(RecordsApi, ShouldAddRecord)
 	addApplicationRecord(title1, "", "", "");
 	addApplicationRecord(title2, "", "", "");
 
-	list<string> titlesActual;
-	getRecordsTitles(titlesActual, Recordtype::UNKNOWN);
+	list<string> titlesActual = getRecordsTitles(Recordtype::UNKNOWN);
 	list<string> titlesExpected = {title1, title2};
 	ASSERT_EQUALS(titlesExpected, titlesActual);
 
@@ -77,8 +76,7 @@ TESTF(RecordsApi, ShouldRemoveRecord)
 	addBankcardRecord(title2, "", "", "", "", "", "");
 	removeRecord(title2);
 
-	list<string> titlesActual;
-	getRecordsTitles(titlesActual, Recordtype::UNKNOWN);
+	list<string> titlesActual = getRecordsTitles(Recordtype::UNKNOWN);
 	list<string> titlesExpected = {title1};
 	ASSERT_EQUALS(titlesExpected, titlesActual);
 
@@ -90,14 +88,10 @@ TESTF(RecordsApi, ShouldReplaceRecord)
 	addSiteRecord(title1, "", "", "", "");
 	replaceWithApplicationRecord(title1, title2, "", "", "");
 
-	list<string> titlesActual;
-	getRecordsTitles(titlesActual, Recordtype::UNKNOWN);
+	list<string> titlesActual = getRecordsTitles(Recordtype::UNKNOWN);
 	list<string> titlesExpected = {title2};
 	ASSERT_EQUALS(titlesExpected, titlesActual);
-
-	Recordtype typeActual;
-	getRecordType(title2, typeActual);
-	ASSERT_EQUALS(Recordtype::APPLICATION, typeActual);
+	ASSERT_EQUALS(Recordtype::APPLICATION, getRecordType(title2));
 
 	ON_TEST_END
 }
@@ -105,10 +99,7 @@ TESTF(RecordsApi, ShouldReplaceRecord)
 TESTF(RecordsApi, ShouldReturnRecordType)
 {
 	addBankcardRecord(title1, "", "", "", "", "", "");
-
-	Recordtype typeActual;
-	getRecordType(title1, typeActual);
-	ASSERT_EQUALS(Recordtype::BANKCARD, typeActual);
+	ASSERT_EQUALS(Recordtype::BANKCARD, getRecordType(title1));
 
 	ON_TEST_END
 }
@@ -120,14 +111,12 @@ TESTF(RecordsApi, ShouldReturnTitlesList)
 	addBankcardRecord(title3, "", "", "", "", "", "");
 
 	// All
-	list<string> titlesActual;
-	getRecordsTitles(titlesActual, Recordtype::UNKNOWN);
+	list<string> titlesActual = getRecordsTitles(Recordtype::UNKNOWN);
 	list<string> titlesExpected = {title1, title2, title3};
 	ASSERT_EQUALS(titlesExpected, titlesActual);
 
 	// By type
-	titlesActual = {};
-	getRecordsTitles(titlesActual, Recordtype::BANKCARD);
+	titlesActual = getRecordsTitles(Recordtype::BANKCARD);
 	titlesExpected = {title2, title3};
 	ASSERT_EQUALS(titlesExpected, titlesActual);
 
@@ -140,8 +129,7 @@ TESTF(RecordsApi, ShouldClearRecords)
 	addApplicationRecord(title2, "", "", "");
 	clearRecords();
 
-	list<string> titles;
-	getRecordsTitles(titles, Recordtype::UNKNOWN);
+	list<string> titles = getRecordsTitles(Recordtype::UNKNOWN);
 	ASSERT_EQUALS(0, titles.size());
 
 	ON_TEST_END
@@ -203,8 +191,7 @@ TESTF(RecordsApi, ShouldWriteAndReadRecords)
 	clearRecords();
 
 	ASSERT_TRUE(readRecords(dir, key));
-	list<string> titles;
-	getRecordsTitles(titles, Recordtype::UNKNOWN);
+	list<string> titles = getRecordsTitles(Recordtype::UNKNOWN);
 	getApplicationRecord(appTitle, actualLogin, actualPassword, actualComment);
 	ASSERT_EQUALS(expectedAppLogin, actualLogin);
 	ASSERT_EQUALS(expectedAppPass, actualPassword);

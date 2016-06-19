@@ -77,9 +77,9 @@ bool getApplicationRecord(const std::string& title,
 		std::string& password,
 		std::string& comment);
 
-bool getRecordType(const std::string& title, Recordtype& type);
+Recordtype getRecordType(const std::string& title);
 
-void getRecordsTitles(std::list<std::string>& titles, const Recordtype type = Recordtype::UNKNOWN);
+std::list<std::string> getRecordsTitles(const Recordtype type = Recordtype::UNKNOWN);
 
 bool readRecords(const std::string& dir, const std::string& key = "");
 

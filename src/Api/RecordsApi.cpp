@@ -269,19 +269,19 @@ bool getApplicationRecord(const string& title,
 			record->getFieldValue(Record::application_comment, comment);
 }
 
-bool getRecordType(const string& title, Recordtype& type)
+Recordtype getRecordType(const string& title)
 {
+	Recordtype type = Recordtype::UNKNOWN;
 	auto record = records.find(title);
-	if (!record)
+	if (record)
 	{
-		return false;
+		type = Recordtype(record->getType());
 	}
 
-	type = Recordtype(record->getType());
-	return true;
+	return type;
 }
 
-void getRecordsTitles(list<string>& titles, const Recordtype type)
+list<string> getRecordsTitles(const Recordtype type)
 {
 	list<const Record*> rlist;
 	if (type == Recordtype::UNKNOWN)
@@ -293,10 +293,12 @@ void getRecordsTitles(list<string>& titles, const Recordtype type)
 		rlist = records.getByType( Record::Type(type) );
 	}
 
+	list<string> titles;
 	std::for_each(rlist.begin(), rlist.end(), [&titles](const Record* r)
 					{
 						titles.push_front(r->getTitle());
 					});
+	return titles;
 }
 
 bool importRecord(const string& text, string& title)
@@ -337,8 +339,7 @@ bool importRecords(const list<string>& texts)
 
 bool exportRecords(list<string>& texts)
 {
-	list<string> titles;
-	getRecordsTitles(titles, Recordtype::UNKNOWN);
+	list<string> titles = getRecordsTitles(Recordtype::UNKNOWN);;
 
 	std::for_each(titles.begin(), titles.end(), [&texts](const string& title)
 			{
