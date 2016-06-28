@@ -383,12 +383,21 @@ bool doesDirExist(const string& dir)
 	return stat(dir.c_str(), &sb) == 0 && S_ISDIR(sb.st_mode);
 }
 
-bool readRecords(const string& dir, const string& key)
+void formatDir(string& dir)
+{
+	if ( dir.back() != '/' )
+	{
+		dir += "/";
+	}
+}
+
+bool readRecords(string dir, const string& key)
 {
 	if ( !doesDirExist(dir) )
 	{
 		return false;
 	}
+	formatDir(dir);
 
 	list<string> texts;
 	for (auto index = 0; ; ++index)
@@ -409,12 +418,13 @@ bool readRecords(const string& dir, const string& key)
 	return importRecords(texts);
 }
 
-bool writeRecords(const string& dir, const string& key)
+bool writeRecords(string dir, const string& key)
 {
 	if ( !doesDirExist(dir) )
 	{
 		return false;
 	}
+	formatDir(dir);
 
 	list<string> texts;
 	if ( !exportRecords(texts) )

@@ -81,9 +81,9 @@ Recordtype getRecordType(const std::string& title);
 
 std::list<std::string> getRecordsTitles(const Recordtype type = Recordtype::UNKNOWN);
 
-bool readRecords(const std::string& dir, const std::string& key = "");
+bool readRecords(std::string dir, const std::string& key = "");
 
-bool writeRecords(const std::string& dir, const std::string& key = "");
+bool writeRecords(std::string dir, const std::string& key = "");
 
 void clearRecords();
 }
