@@ -8,7 +8,7 @@
 #ifndef INCLUDES_UNITTEST_H_
 #define INCLUDES_UNITTEST_H_
 
-#define RUN_UNIT_TESTS
+//#define RUN_UNIT_TESTS
 
 #ifdef RUN_UNIT_TESTS
 
